@@ -6,15 +6,16 @@ import Slider from './slider.container'
 class App extends Component {
     render() {
         return (
-            <section id="container" class="">
-                <NavbarContainer />
-                <Slider/>
-                <Router>
+            <Router>
+                <section id="container" class="">
+                    <NavbarContainer />
+                    <Slider />
                     <Switch>
                         <Route exact path='/' component={HomeContainer} />
+                        <Route exact path='/bookmanager' component={HomeContainer} />
                     </Switch>
-                </Router>
-            </section>
+                </section>
+            </Router>
         )
     }
 }

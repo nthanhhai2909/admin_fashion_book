@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import {Link} from 'react-router-dom'
 class Slider extends Component {
     render() {
         return (
@@ -15,12 +15,14 @@ class Slider extends Component {
                         <li className="sub-menu">
                             <a href="javascript:;" className="">
                                 <i className="icon_document_alt"></i>
-                                <span>Forms</span>
+                                <span>Manager</span>
                                 <span className="menu-arrow arrow_carrot-right"></span>
                             </a>
                             <ul className="sub">
-                                <li><a className="" href="form_component.html">Form Elements</a></li>
-                                <li><a className="" href="form_validation.html">Form Validation</a></li>
+                                <li><Link className="" to="/bookmanager">Book management</Link></li>
+                                <li><Link className="" to="/categorymanager">Category management</Link></li>
+                                <li><Link className="" to="/publisher">Publisher management</Link></li>
+                                <li><Link className="" to="/categorymanager">Author management</Link></li>
                             </ul>
                         </li>
                         <li className="sub-menu">
