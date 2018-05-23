@@ -12,7 +12,7 @@ class Category extends Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        if(!nextProps.isadd) {
+        if(nextProps.isadd === false) {
             this.setState({
                 noti:'Please Change name'
             })
@@ -106,7 +106,7 @@ class Category extends Component {
                                         <div className="form-group">
                                             <div className="col-lg-offset-2 col-lg-10">
                                                 <button onClick={() => this.add()} className="btn btn-primary">Add</button>
-                                                <button className="btn btn-primary" >Update</button>
+                                                <button onClick={() => this.props.updateCategory(this.state.id, this.state.name)}className="btn btn-primary" >Update</button>
                                             </div>
                                         </div>
                                     </div>

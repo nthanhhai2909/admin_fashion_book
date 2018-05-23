@@ -17,6 +17,7 @@ class CategoryContainer extends Component {
                 category={this.props.category}
                 addCategory={(name) => this.props.bookActions.addCategory(name)}
                 isadd={this.props.isadd}
+                updateCategory={(id, name) => this.props.bookActions.updateCategory(id, name)}
             />
         )
     }
@@ -24,6 +25,7 @@ class CategoryContainer extends Component {
 const mapStateToProps = state => ({
     category: state.bookReducers.category.data,
     isadd: state.bookReducers.category.isadd
+    
 })
 
 const mapDispatchToProps = dispatch => {

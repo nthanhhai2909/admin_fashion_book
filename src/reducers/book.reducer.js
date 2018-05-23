@@ -20,6 +20,18 @@ const category = (state = { data: [] }, action) => {
                 isadd: false
             }
         }
+        case bookTypes.UPDATE_CATEGORY_SUCCESS: {
+            return {
+                ...state,
+                isupdate: true
+            }
+        }
+        case bookTypes.UPDATE_CATEGORY_FAIL: {
+            return {
+                ...state,
+                isupdate: false
+            }
+        }
         default: return state
     }
 }

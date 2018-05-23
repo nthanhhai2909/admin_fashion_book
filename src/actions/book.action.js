@@ -93,6 +93,12 @@ export const addCategorySuccess = () =>({
 export const addCategotyFail = () => ({
     type: bookTypes.ADD_CATEGORY_FAIL
 })
+export const updateCategorySuccess = () => ({
+    type: bookTypes.UPDATE_CATEGORY_SUCCESS
+})
+export const updateCategoryFail = () => ({
+    type: bookTypes.UPDATE_CATEGORY_FAIL
+})
 export const addCategory =  (name) => async (dispatch, getState) => {
     let res
     try {
@@ -107,3 +113,20 @@ export const addCategory =  (name) => async (dispatch, getState) => {
     dispatch(addCategorySuccess())
     dispatch(getCategory())
 }
+
+export const updateCategory =  (id, name) => async (dispatch, getState) => {
+    let res
+    try {
+        res = await axios.post('http://localhost:8080/admin/updatecategory', {
+            id: id,
+            name: name
+        })
+    }
+    catch(err) {
+        dispatch(updateCategoryFail())
+        return
+    } 
+    dispatch(updateCategorySuccess())
+    dispatch(getCategory())
+}
+
