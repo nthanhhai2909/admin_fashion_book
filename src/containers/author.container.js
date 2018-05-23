@@ -2,31 +2,31 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as bookActions from '../actions/book.action'
-import Category from '../components/category/category'
-class CategoryContainer extends Component {
+import Author from '../components/author/author'
+class AuthorContainer extends Component {
     constructor() {
         super()
     }
     componentWillMount() {
-        this.props.bookActions.getCategory()
+        this.props.bookActions.getAuthor()
     }
 
     render() {
         return (
-            <Category
-                category={this.props.category}
-                addCategory={(name) => this.props.bookActions.addCategory(name)}
+            <Author
+                author={this.props.author}
                 isadd={this.props.isadd}
-                updateCategory={(id, name) => this.props.bookActions.updateCategory(id, name)}
+                addAuthor={(name) => this.props.bookActions.addAuthor(name)}
+                updateAuthor={(id, name) => this.props.bookActions.updateAuthor(id, name)}
                 isupdate={this.props.isupdate}
             />
         )
     }
 }
 const mapStateToProps = state => ({
-    category: state.bookReducers.category.data,
-    isadd: state.bookReducers.category.isadd,
-    isupdate: state.bookReducers.category.isupdate
+    author: state.bookReducers.author.data,
+    isadd: state.bookReducers.author.isadd,
+    isupdate: state.bookReducers.author.isupdate
 })
 
 const mapDispatchToProps = dispatch => {
@@ -37,4 +37,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(CategoryContainer)
+)(AuthorContainer)

@@ -54,6 +54,30 @@ const author = (state = {data: []}, action) => {
                 data: action.data
             }
         }
+        case bookTypes.ADD_AUTHOR_SUCCESS: {
+            return {
+                ...state,
+                isadd: true
+            }
+        }
+        case bookTypes.ADD_AUTHOR_FAIL: {
+            return {
+                ...state,
+                isadd: false
+            }
+        }
+        case bookTypes.UPDATE_AUTHOR_SUCCESS: {
+            return {
+                ...state,
+                isupdate: true
+            }
+        }
+        case bookTypes.UPDATE_AUTHOR_FAIL: {
+            return {
+                ...state,
+                isupdate: false
+            }
+        }
         default: return state
     }
 }

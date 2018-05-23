@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-class Category extends Component {
+class Author extends Component {
     constructor() {
         super()
         this.state = {
@@ -35,9 +35,6 @@ class Category extends Component {
             })
         }
     }
-    add = () => {
-            this.props.addCategory(this.state.name)
-    }
     render() {
         return (
             <section id="main-content">
@@ -64,7 +61,7 @@ class Category extends Component {
                                         <th><i className="icon_cogs"></i> Action</th>
                                     </tr>
                                     {
-                                        this.props.category.map((element, index) => {
+                                        this.props.author.map((element, index) => {
                                             return (
                                                 <tr>
                                                     <td>{element.name}</td>
@@ -116,8 +113,8 @@ class Category extends Component {
                                         </div>
                                         <div className="form-group">
                                             <div className="col-lg-offset-2 col-lg-10">
-                                                <button onClick={() => this.add()} className="btn btn-primary">Add</button>
-                                                <button onClick={() => this.props.updateCategory(this.state.id, this.state.name)}className="btn btn-primary" >Update</button>
+                                                <button onClick={() => this.props.addAuthor(this.state.name)} className="btn btn-primary">Add</button>
+                                                <button onClick={() => this.props.updateAuthor(this.state.id, this.state.name)}className="btn btn-primary" >Update</button>
                                             </div>
                                         </div>
                                     </div>
@@ -131,4 +128,4 @@ class Category extends Component {
         )
     }
 }
-export default Category
+export default Author

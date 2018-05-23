@@ -129,4 +129,46 @@ export const updateCategory =  (id, name) => async (dispatch, getState) => {
     dispatch(updateCategorySuccess())
     dispatch(getCategory())
 }
+export const addAuthorSuccess = () =>({
+    type: bookTypes.ADD_AUTHOR_SUCCESS
+})
+export const addAuthorFail = () => ({
+    type: bookTypes.ADD_AUTHOR_FAIL
+})
+export const updateAuthorSuccess = () => ({
+    type: bookTypes.UPDATE_AUTHOR_SUCCESS
+})
+export const updateAuthorFail = () => ({
+    type: bookTypes.UPDATE_AUTHOR_FAIL
+})
+export const addAuthor =  (name) => async (dispatch, getState) => {
+    let res
+    try {
+        res = await axios.post('http://localhost:8080/admin/addauthor', {
+            name: name
+        })
+    }
+    catch(err) {
+        dispatch(addAuthorFail())
+        return
+    } 
+    dispatch(addAuthorSuccess())
+    dispatch(getAuthor())
+}
+
+export const updateAuthor =  (id, name) => async (dispatch, getState) => {
+    let res
+    try {
+        res = await axios.post('http://localhost:8080/admin/updateauthor', {
+            id: id,
+            name: name
+        })
+    }
+    catch(err) {
+        dispatch(updateAuthorFail())
+        return
+    } 
+    dispatch(updateAuthorSuccess())
+    dispatch(getAuthor())
+}
 
