@@ -7,7 +7,11 @@ class Book extends Component {
             pagination: [],
             book: null,
             file: '',
-            imagePreviewUrl: null
+            imagePreviewUrl: null,
+            curr: "add",
+            category: 'category',
+            publisher: 'publisher',
+            author: 'author'
         }
     }
     componentWillMount() {
@@ -61,15 +65,58 @@ class Book extends Component {
     }
     handleChangeImg = (img) => {
         let reader = new FileReader()
-        this.setState({
-            file: img,
-            imagePreviewUrl: reader.result
-        });
+        reader.onloadend = () => {
+            this.setState({
+                file: img,
+                imagePreviewUrl: reader.result,
+                book: {
+                    ...this.state.book,
+                    img: reader.result
+                }
+            });
+        }
         reader.readAsDataURL(img)
-        console.log(reader.result)
     }
+    renderBtnSubmit = () => {
+        if (this.state.curr === "add") {
+            return (
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-primary" type="submit">Add</button>
+                        <button class="btn btn-primary" disabled type="button">Update</button>
+                    </div>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-primary" disabled type="submit">Add</button>
+                        <button class="btn btn-primary" type="button">Update</button>
+                    </div>
+                </div>
+            )
+        }
+    }
+    renderMenuCategory = () => {
+        if (this.props.category) {
+            return this.props.category.map((element, index) => {
+                return (
+                    <li><a href="#">{element.name}</a></li>
+                )
+            })
+            
+        }
+        else{
+            return null
+        }
+        return (
+            <li><a href="#">asdasd</a></li>
+        )
+    }
+
     render() {
-        console.log(this.state.file)
         return (
             <section id="main-content">
                 <div class="row">
@@ -107,7 +154,10 @@ class Book extends Component {
                                                     <td style={{ width: "40%", }}>{element.describe}</td>
                                                     <td>
                                                         <div class="btn-group">
-                                                            <a
+                                                            <a onClick={() => this.setState({
+                                                                book: element,
+                                                                curr: "update"
+                                                            })}
                                                                 class="btn btn-success" ><i class="icon_check_alt2"></i></a>
                                                             <a onClick={() => this.props.deleteBook(element._id)} class="btn btn-danger" ><i class="icon_close_alt2"></i></a>
                                                         </div>
@@ -135,25 +185,100 @@ class Book extends Component {
                                         <div class="form-group ">
                                             <label for="cname" class="control-label col-lg-2">Name <span class="required">*</span></label>
                                             <div class="col-lg-10">
-                                                <input class="form-control" id="cname" name="fullname" minlength="5" type="text" required />
+                                                <input
+                                                    onChange={e => {
+                                                        this.setState({
+                                                            book: {
+                                                                ...this.state.book,
+                                                                name: e.target.value
+                                                            }
+                                                        })
+                                                    }}
+                                                    value={this.state.book && this.state.book.name ? this.state.book.name : ""}
+                                                    class="form-control" id="cname" name="fullname" minlength="5" type="text" required />
                                             </div>
                                         </div>
                                         <div class="form-group ">
                                             <label for="cemail" class="control-label col-lg-2">Date<span class="required">*</span></label>
                                             <div class="col-lg-10">
-                                                <input class="form-control " id="cemail" type="email" name="email" required />
+                                                <input
+                                                    value={this.state.book && this.state.book.release_date ? this.state.book.release_date.slice(0, 10) : null}
+                                                    onChange={(e) => this.setState({
+                                                        book: {
+                                                            ...this.state.book,
+                                                            release_date: e.target.value
+                                                        }
+                                                    })}
+                                                    class="form-control " id="cemail" type="date" name="email" required />
                                             </div>
                                         </div>
                                         <div class="form-group ">
                                             <label for="curl" class="control-label col-lg-2">Price</label>
                                             <div class="col-lg-10">
-                                                <input class="form-control " id="curl" type="url" name="url" />
+                                                <input
+                                                    value={this.state.book && this.state.book.price ? this.state.book.price : null}
+                                                    onChange={(e) => this.setState({
+                                                        book: {
+                                                            ...this.state.book,
+                                                            price: e.target.value
+                                                        }
+                                                    })}
+                                                    class="form-control " id="curl" type="text" name="url" />
                                             </div>
                                         </div>
                                         <div class="form-group ">
                                             <label for="cname" class="control-label col-lg-2">Describe <span class="required">*</span></label>
                                             <div class="col-lg-10">
-                                                <input class="form-control" id="subject" name="subject" minlength="5" type="text" required />
+                                                <input
+                                                    value={this.state.book && this.state.book.describe ? this.state.book.describe : null}
+                                                    onChange={(e) => this.setState({
+                                                        book: {
+                                                            ...this.state.book,
+                                                            describe: e.target.value
+                                                        }
+                                                    })}
+                                                    class="form-control" id="subject" name="subject" minlength="5" type="text" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="comment " class="control-label col-lg-2">Category</label>
+                                            <div class="btn-group col-lg-10">
+                                                <button style={{ width: "200px" }} type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    {this.state.category}  <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    {this.renderMenuCategory()}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="comment" class="control-label col-lg-2">Author</label>
+                                            <div class="btn-group col-lg-10">
+                                                <button style={{ width: "200px" }} type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    {this.state.author} <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">Action</a></li>
+                                                    <li><a href="#">Another action</a></li>
+                                                    <li><a href="#">Something else here</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Separated link</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="comment" class="control-label col-lg-2">Publisher</label>
+                                            <div class="btn-group col-lg-10">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style={{ width: "200px" }}>
+                                                    {this.state.publisher} <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">Action</a></li>
+                                                    <li><a href="#">Another action</a></li>
+                                                    <li><a href="#">Something else here</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Separated link</a></li>
+                                                </ul>
                                             </div>
                                         </div>
                                         <div class="form-group ">
@@ -164,21 +289,13 @@ class Book extends Component {
                                                 />
                                             </div>
                                         </div>
-
                                         <div class="form-group ">
                                             <label for="comment" class="control-label col-lg-2">Image</label>
                                             <div class="col-lg-10">
-                                                <img src={this.state.book ? this.state.book.img : "https://res.cloudinary.com/dinosys/image/upload/v1525489543/9781408845646.jpg"} />
+                                                <img src={this.state.book && this.state.book.img ? this.state.book.img : ""} style={{ maxWidth: "300px" }} />
                                             </div>
                                         </div>
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-offset-2 col-lg-10">
-                                                <button class="btn btn-primary" type="submit">Save</button>
-                                                <button class="btn btn-default" type="button">Cancel</button>
-                                            </div>
-                                        </div>
+                                        {this.renderBtnSubmit()}
                                     </form>
                                 </div>
 

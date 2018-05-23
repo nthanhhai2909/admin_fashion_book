@@ -39,3 +39,51 @@ export const deleteBook = (id) => async(dispatch, getState) => {
     console.log(res)
     dispatch(getBook())
 }
+
+export const getCategory = () => async (dispatch, getState) =>  {
+    let res
+    try {
+        res = await axios.get('http://localhost:8080/category/all')
+    }
+    catch (err) {
+        return
+    }
+    dispatch(setCategory(res.data.data))
+}
+
+export const getPublisher = () => async (dispatch, getState) => {
+    let res
+    try {
+        res = await axios.get('http://localhost:8080/publisher/all')
+    }
+    catch (err) {
+        return
+    }
+    dispatch(setPublisher(res.data.data))
+}
+
+export const getAuthor = () => async (dispatch, getState) => {
+    let res
+    try {
+        res = await axios.get('http://localhost:8080/author/all')
+    }
+    catch(err) {
+        return
+    }
+    dispatch(setAuthor(res.data.data))
+}
+
+export const setCategory = (data) => ({
+    type: bookTypes.SET_CATEGORY_BOOK,
+    data
+})
+
+export const setPublisher = (data) => ({
+    type: bookTypes.SET_PUBLISHSER,
+    data
+})
+
+export const setAuthor = (data) => ({
+    type: bookTypes.SET_AUTHOR,
+    data
+})

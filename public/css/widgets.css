@@ -1,7 +1,9 @@
 /* Widget css */
 
 /* Chat Widget starts */
-
+.item-custom div {
+	display: inline-block;
+}
 .chats{
 	list-style-type: none;
 	margin: 0px;

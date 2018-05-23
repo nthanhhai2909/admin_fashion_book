@@ -1,5 +1,38 @@
 import { bookTypes } from '../constants/action.types'
 import { combineReducers } from 'redux'
+const category = (state = { data: [] }, action) => {
+    switch (action.type) {
+        case bookTypes.SET_CATEGORY_BOOK: {
+            return {
+                ...state,
+                data: action.data
+            }
+        }
+        default: return state
+    }
+}
+const publisher = (state = { data: [] }, action) => {
+    switch (action.type) {
+        case bookTypes.SET_PUBLISHSER: {
+            return {
+                ...state,
+                data: action.data
+            }
+        }
+        default: return state
+    }
+}
+const author = (state = {data: []}, action) => {
+    switch(action.type) {
+        case bookTypes.SET_AUTHOR: {
+            return {
+                ...state,
+                data: action.data
+            }
+        }
+        default: return state
+    }
+}
 const book = (state = {
     data: [], page: 1, totalpage: null
 }, action) => {
@@ -26,5 +59,8 @@ const book = (state = {
     }
 }
 export default combineReducers({
-    book
+    category,
+    publisher,
+    book, 
+    author
 })

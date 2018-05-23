@@ -11,7 +11,10 @@ class BookContainer extends Component {
         }
     }
     componentWillMount() {
+        this.props.bookActions.getCategory()
+        this.props.bookActions.getPublisher()
         this.props.bookActions.getBook()
+        this.props.bookActions.getAuthor()
     }
     render() {
         return (
@@ -20,6 +23,9 @@ class BookContainer extends Component {
                     book={this.props.book}
                     totalpage={this.props.totalpage}
                     page={this.props.page}
+                    category={this.props.category}
+                    publisher={this.props.publisher}
+                    author={this.props.author}
                     deleteBook={(id) => this.props.bookActions.deleteBook(id)}
                 />
             </div>
@@ -30,6 +36,9 @@ const mapStateToProps = state => ({
     book: state.bookReducers.book.data,
     totalpage: state.bookReducers.book.totalpage,
     page: state.bookReducers.book.page,
+    category: state.bookReducers.category.data,
+    publisher: state.bookReducers.publisher.data,
+    author: state.bookReducers.author.data,
 })
 
 const mapDispatchToProps = dispatch => {
