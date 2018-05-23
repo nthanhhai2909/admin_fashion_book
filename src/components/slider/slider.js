@@ -19,10 +19,10 @@ class Slider extends Component {
                                 <span className="menu-arrow arrow_carrot-right"></span>
                             </a>
                             <ul className="sub">
-                                <li><Link className="" to="/bookmanager">Book management</Link></li>
-                                <li><Link className="" to="/categorymanager">Category management</Link></li>
-                                <li><Link className="" to="/publisher">Publisher management</Link></li>
-                                <li><Link className="" to="/categorymanager">Author management</Link></li>
+                                <li><Link className="" to="/bookmanager">Book </Link></li>
+                                <li><Link className="" to="/categorymanager">Category </Link></li>
+                                <li><Link className="" to="/publisher">Publisher</Link></li>
+                                <li><Link className="" to="/categorymanager">Author</Link></li>
                             </ul>
                         </li>
                         <li className="sub-menu">
