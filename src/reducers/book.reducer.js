@@ -8,6 +8,18 @@ const category = (state = { data: [] }, action) => {
                 data: action.data
             }
         }
+        case bookTypes.ADD_CATEGORY_SUCCESS: {
+            return {
+                ...state,
+                isadd: true
+            }
+        }
+        case bookTypes.ADD_CATEGORY_FAIL: {
+            return {
+                ...state,
+                isadd: false
+            }
+        }
         default: return state
     }
 }

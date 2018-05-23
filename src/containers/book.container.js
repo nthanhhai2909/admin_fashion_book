@@ -4,12 +4,6 @@ import { bindActionCreators } from 'redux'
 import * as bookActions from '../actions/book.action'
 import Book from '../components/book/book'
 class BookContainer extends Component {
-    constructor() {
-        super()
-        this.state = {
-
-        }
-    }
     componentWillMount() {
         this.props.bookActions.getCategory()
         this.props.bookActions.getPublisher()

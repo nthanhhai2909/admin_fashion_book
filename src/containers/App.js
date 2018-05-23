@@ -4,6 +4,7 @@ import HomeContainer from './home.container'
 import NavbarContainer from './navbar.container'
 import Slider from './slider.container'
 import BookContainer from './book.container'
+import CategoryContainer from './category.container'
 class App extends Component {
     render() {
         return (
@@ -14,6 +15,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path='/' component={HomeContainer} />
                         <Route exact path='/bookmanager' component={BookContainer} />
+                        <Route exact path='/categorymanager' component={CategoryContainer} />
                     </Switch>
                 </section>
             </Router>

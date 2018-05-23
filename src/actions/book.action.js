@@ -87,3 +87,23 @@ export const setAuthor = (data) => ({
     type: bookTypes.SET_AUTHOR,
     data
 })
+export const addCategorySuccess = () =>({
+    type: bookTypes.ADD_CATEGORY_SUCCESS
+})
+export const addCategotyFail = () => ({
+    type: bookTypes.ADD_CATEGORY_FAIL
+})
+export const addCategory =  (name) => async (dispatch, getState) => {
+    let res
+    try {
+        res = await axios.post('http://localhost:8080/admin/addcategory', {
+            name: name
+        })
+    }
+    catch(err) {
+        dispatch(addCategotyFail())
+        return
+    } 
+    dispatch(addCategorySuccess())
+    dispatch(getCategory())
+}
