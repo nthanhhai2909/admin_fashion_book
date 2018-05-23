@@ -4,7 +4,10 @@ class Book extends Component {
     constructor() {
         super()
         this.state = {
-            pagination: []
+            pagination: [],
+            book: null,
+            file: '',
+            imagePreviewUrl: null
         }
     }
     componentWillMount() {
@@ -21,6 +24,11 @@ class Book extends Component {
                 tmp.push(i);
             }
             this.setState({ pagination: tmp })
+        }
+        if (nextProps.book !== null) {
+            this.setState({
+                imagePreviewUrl: nextProps.book.img
+            })
         }
     }
     renderPagination() {
@@ -51,27 +59,17 @@ class Book extends Component {
             )
         }
     }
-    renderTableBook(book){
-        console.log(book)
-        book.map((element, index) => {
-            return (
-                <tr>
-                    <td>{element.name}</td>
-                    <td>{element.release_date}</td>
-                    <td>{element.price}</td>
-                    <td>{element.price}</td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                            <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                            <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                        </div>
-                    </td>
-                </tr>
-            )
-        })
+    handleChangeImg = (img) => {
+        let reader = new FileReader()
+        this.setState({
+            file: img,
+            imagePreviewUrl: reader.result
+        });
+        reader.readAsDataURL(img)
+        console.log(reader.result)
     }
     render() {
+        console.log(this.state.file)
         return (
             <section id="main-content">
                 <div class="row">
@@ -106,11 +104,12 @@ class Book extends Component {
                                                     <td>{element.name}</td>
                                                     <td>{element.release_date}</td>
                                                     <td>{element.price}</td>
-                                                    <td>{element.describe}</td>
+                                                    <td style={{ width: "40%", }}>{element.describe}</td>
                                                     <td>
                                                         <div class="btn-group">
-                                                            <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                            <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
+                                                            <a
+                                                                class="btn btn-success" ><i class="icon_check_alt2"></i></a>
+                                                            <a onClick={() => this.props.deleteBook(element._id)} class="btn btn-danger" ><i class="icon_close_alt2"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -120,7 +119,6 @@ class Book extends Component {
                                 </tbody>
                             </table>
                             {this.renderPagination()}
-
                         </section>
 
                     </div>
@@ -159,11 +157,22 @@ class Book extends Component {
                                             </div>
                                         </div>
                                         <div class="form-group ">
-                                            <label for="ccomment" class="control-label col-lg-2">Image</label>
+                                            <label for="comment" class="control-label col-lg-2">Image upload </label>
                                             <div class="col-lg-10">
-                                                <input class="form-control " type="file"id="ccomment" name="comment" required/>
+                                                <input class="form-control " type="file" id="ccomment" name="comment" required
+                                                    onChange={e => this.handleChangeImg(e.target.files[0])}
+                                                />
                                             </div>
                                         </div>
+
+                                        <div class="form-group ">
+                                            <label for="comment" class="control-label col-lg-2">Image</label>
+                                            <div class="col-lg-10">
+                                                <img src={this.state.book ? this.state.book.img : "https://res.cloudinary.com/dinosys/image/upload/v1525489543/9781408845646.jpg"} />
+                                            </div>
+                                        </div>
+
+
                                         <div class="form-group">
                                             <div class="col-lg-offset-2 col-lg-10">
                                                 <button class="btn btn-primary" type="submit">Save</button>

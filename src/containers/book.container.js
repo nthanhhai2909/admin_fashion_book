@@ -20,6 +20,7 @@ class BookContainer extends Component {
                     book={this.props.book}
                     totalpage={this.props.totalpage}
                     page={this.props.page}
+                    deleteBook={(id) => this.props.bookActions.deleteBook(id)}
                 />
             </div>
         )

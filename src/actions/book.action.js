@@ -27,3 +27,15 @@ export const setTotalPage = (totalpage) => ({
     type: bookTypes.SET_TOTAL_PAGE,
     totalpage
 })
+export const deleteBook = (id) => async(dispatch, getState) => {
+    let res
+    try {
+        res = await axios.get('http://localhost:8080/admin/deletebook/' +id)
+    }
+    catch (err) {
+        console.log(err)
+        return
+    }
+    console.log(res)
+    dispatch(getBook())
+}
