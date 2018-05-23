@@ -4,7 +4,23 @@ class Book extends Component {
     constructor() {
         super()
         this.state = {
-            pagination: [1, 2]
+            pagination: []
+        }
+    }
+    componentWillMount() {
+        let tmp = []
+        for (let i = 1; i <= this.props.totalpage; i++) {
+            tmp.push(i);
+        }
+        this.setState({ pagination: tmp })
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.totalpage !== this.props.totalpage) {
+            let tmp = []
+            for (let i = 1; i <= nextProps.totalpage; i++) {
+                tmp.push(i);
+            }
+            this.setState({ pagination: tmp })
         }
     }
     renderPagination() {
@@ -35,7 +51,25 @@ class Book extends Component {
             )
         }
     }
-    renderTableBook = () => {
+    renderTableBook(book){
+        console.log(book)
+        book.map((element, index) => {
+            return (
+                <tr>
+                    <td>{element.name}</td>
+                    <td>{element.release_date}</td>
+                    <td>{element.price}</td>
+                    <td>{element.price}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
+                            <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
+                            <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            )
+        })
     }
     render() {
         return (
@@ -59,153 +93,30 @@ class Book extends Component {
                             <table class="table table-striped table-advance table-hover">
                                 <tbody>
                                     <tr>
-                                        <th><i class="icon_profile"></i> Full Name</th>
+                                        <th><i class="icon_profile"></i> Name</th>
                                         <th><i class="icon_calendar"></i> Date</th>
-                                        <th><i class="icon_mail_alt"></i> Email</th>
-                                        <th><i class="icon_pin_alt"></i> City</th>
-                                        <th><i class="icon_mobile"></i> Mobile</th>
+                                        <th><i class="icon_mail_alt"></i> Price</th>
+                                        <th><i class="icon_pin_alt"></i> describe</th>
                                         <th><i class="icon_cogs"></i> Action</th>
                                     </tr>
-                                    <tr>
-                                        <td>Angeline Mcclain</td>
-                                        <td>2004-07-06</td>
-                                        <td>dale@chief.info</td>
-                                        <td>Rosser</td>
-                                        <td>176-026-5992</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sung Carlson</td>
-                                        <td>2011-01-10</td>
-                                        <td>ione.gisela@high.org</td>
-                                        <td>Robert Lee</td>
-                                        <td>724-639-4784</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bryon Osborne</td>
-                                        <td>2006-10-29</td>
-                                        <td>sol.raleigh@language.edu</td>
-                                        <td>York</td>
-                                        <td>180-456-0056</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dalia </td>
-                                        <td>2011-12-15</td>
-                                        <td>angeline.frieda@thick.com</td>
-                                        <td>Alton</td>
-                                        <td>690-601-1922</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>Selina Fitzgerald</td>
-                                        <td>2003-01-06</td>
-                                        <td>moshe.mikel@parcelpart.info</td>
-                                        <td>Waelder</td>
-                                        <td>922-810-0915</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Abraham Avery</td>
-                                        <td>2006-07-14</td>
-                                        <td>harvey.jared@pullpump.org</td>
-                                        <td>Harker Heights</td>
-                                        <td>511-175-7115</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Caren Mcdowell</td>
-                                        <td>2002-03-29</td>
-                                        <td>valeria@hookhope.org</td>
-                                        <td>Blackwell</td>
-                                        <td>970-147-5550</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Owen Bingham</td>
-                                        <td>2013-04-06</td>
-                                        <td>thomas.christopher@firstfish.info</td>
-                                        <td>Rule</td>
-                                        <td>934-118-6046</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ahmed Dean</td>
-                                        <td>2008-03-19</td>
-                                        <td>lakesha.geri.allene@recordred.com</td>
-                                        <td>Darrouzett</td>
-                                        <td>338-081-8817</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mario Norris</td>
-                                        <td>2010-02-08</td>
-                                        <td>mildred@hour.info</td>
-                                        <td>Amarillo</td>
-                                        <td>945-547-5302</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                                                <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                                                <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    {
+                                        this.props.book.map((element, index) => {
+                                            return (
+                                                <tr>
+                                                    <td>{element.name}</td>
+                                                    <td>{element.release_date}</td>
+                                                    <td>{element.price}</td>
+                                                    <td>{element.describe}</td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
+                                                            <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
                                 </tbody>
                             </table>
                             {this.renderPagination()}
@@ -224,33 +135,33 @@ class Book extends Component {
                                 <div class="form">
                                     <form class="form-validate form-horizontal" id="feedback_form" method="get" action="">
                                         <div class="form-group ">
-                                            <label for="cname" class="control-label col-lg-2">Full Name <span class="required">*</span></label>
+                                            <label for="cname" class="control-label col-lg-2">Name <span class="required">*</span></label>
                                             <div class="col-lg-10">
                                                 <input class="form-control" id="cname" name="fullname" minlength="5" type="text" required />
                                             </div>
                                         </div>
                                         <div class="form-group ">
-                                            <label for="cemail" class="control-label col-lg-2">E-Mail <span class="required">*</span></label>
+                                            <label for="cemail" class="control-label col-lg-2">Date<span class="required">*</span></label>
                                             <div class="col-lg-10">
                                                 <input class="form-control " id="cemail" type="email" name="email" required />
                                             </div>
                                         </div>
                                         <div class="form-group ">
-                                            <label for="curl" class="control-label col-lg-2">Website</label>
+                                            <label for="curl" class="control-label col-lg-2">Price</label>
                                             <div class="col-lg-10">
                                                 <input class="form-control " id="curl" type="url" name="url" />
                                             </div>
                                         </div>
                                         <div class="form-group ">
-                                            <label for="cname" class="control-label col-lg-2">Subject <span class="required">*</span></label>
+                                            <label for="cname" class="control-label col-lg-2">Describe <span class="required">*</span></label>
                                             <div class="col-lg-10">
                                                 <input class="form-control" id="subject" name="subject" minlength="5" type="text" required />
                                             </div>
                                         </div>
                                         <div class="form-group ">
-                                            <label for="ccomment" class="control-label col-lg-2">Feedback</label>
+                                            <label for="ccomment" class="control-label col-lg-2">Image</label>
                                             <div class="col-lg-10">
-                                                <textarea class="form-control " id="ccomment" name="comment" required></textarea>
+                                                <input class="form-control " type="file"id="ccomment" name="comment" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
