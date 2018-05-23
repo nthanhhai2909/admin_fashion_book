@@ -43,6 +43,30 @@ const publisher = (state = { data: [] }, action) => {
                 data: action.data
             }
         }
+        case bookTypes.ADD_PUBLISHER_SUCCESS: {
+            return {
+                ...state,
+                isadd: true
+            }
+        }
+        case bookTypes.ADD_PUBLISHER_FAIL: {
+            return {
+                ...state,
+                isadd: false
+            }
+        }
+        case bookTypes.UPDATE_PUBLISHER_SUCCESS: {
+            return {
+                ...state,
+                isupdate: true
+            }
+        }
+        case bookTypes.UPDATE_PUBLISHER_FAIL: {
+            return {
+                ...state,
+                isupdate: false
+            }
+        }
         default: return state
     }
 }
