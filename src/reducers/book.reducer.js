@@ -32,6 +32,13 @@ const category = (state = { data: [] }, action) => {
                 isupdate: false
             }
         }
+        case bookTypes.RESET_CATEGORY: {
+            return {
+                ...state,
+                isadd: null,
+                isupdate: null
+            }
+        }
         default: return state
     }
 }
@@ -67,6 +74,13 @@ const publisher = (state = { data: [] }, action) => {
                 isupdate: false
             }
         }
+        case bookTypes.RESET_PUBLISHER: {
+            return {
+                ...state,
+                isadd: null,
+                isupdate: null
+            }
+        }
         default: return state
     }
 }
@@ -100,6 +114,13 @@ const author = (state = {data: []}, action) => {
             return {
                 ...state,
                 isupdate: false
+            }
+        }
+        case bookTypes.RESET_AUTHOR: {
+            return {
+                ...state,
+                isadd: null,
+                isupdate: null
             }
         }
         default: return state

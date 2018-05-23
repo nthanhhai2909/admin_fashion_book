@@ -17,7 +17,7 @@ class Author extends Component {
                 noti:'Please Change name'
             })
         }
-        else {
+        else if(nextProps.isadd === true){
             this.setState({
                 noti:'',
                 name: ''
@@ -28,10 +28,11 @@ class Author extends Component {
                 noti:'update fail'
             })
         }
-        else {
+        else if(nextProps.isupdate === true) {
             this.setState({
                 noti:'',
-                id:null
+                id:null,
+                name:''
             })
         }
     }

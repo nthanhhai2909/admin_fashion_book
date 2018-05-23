@@ -99,7 +99,11 @@ export const updateCategorySuccess = () => ({
 export const updateCategoryFail = () => ({
     type: bookTypes.UPDATE_CATEGORY_FAIL
 })
+export const resetCategory = () => ({
+    type: bookTypes.RESET_CATEGORY
+})
 export const addCategory =  (name) => async (dispatch, getState) => {
+    dispatch(resetCategory())
     let res
     try {
         res = await axios.post('http://localhost:8080/admin/addcategory', {
@@ -141,7 +145,11 @@ export const updateAuthorSuccess = () => ({
 export const updateAuthorFail = () => ({
     type: bookTypes.UPDATE_AUTHOR_FAIL
 })
+export const resetAuthor = () => ({
+    type: bookTypes.RESET_AUTHOR
+})
 export const addAuthor =  (name) => async (dispatch, getState) => {
+    dispatch(resetAuthor())
     let res
     try {
         res = await axios.post('http://localhost:8080/admin/addauthor', {
@@ -183,7 +191,11 @@ export const updatePublisherSuccess = () => ({
 export const updatePublisherFail = () => ({
     type: bookTypes.UPDATE_PUBLISHER_FAIL
 })
+export const resetPublisher = () => ({
+    type: bookTypes.RESET_PUBLISHER
+})
 export const addPublisher =  (name) => async (dispatch, getState) => {
+    dispatch(resetPublisher())
     let res
     try {
         res = await axios.post('http://localhost:8080/admin/addpublisher', {
