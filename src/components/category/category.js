@@ -48,7 +48,7 @@ class Category extends Component {
                         <ol className="breadcrumb">
                             <li><i className="fa fa-home"></i><Link to='/'>Home</Link></li>
                             <li><i className="fa fa-table"></i>Table</li>
-                            <li><i className="fa fa-th-list"></i>Book Manager</li>
+                            <li><i className="fa fa-th-list"></i>Category Manager</li>
                         </ol>
                     </div>
                 </div>

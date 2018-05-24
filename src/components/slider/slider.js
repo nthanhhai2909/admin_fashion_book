@@ -23,6 +23,7 @@ class Slider extends Component {
                                 <li><Link className="" to="/categorymanager">Category </Link></li>
                                 <li><Link className="" to="/publishermanager">Publisher</Link></li>
                                 <li><Link className="" to="/authormanager">Author</Link></li>
+                                <li><Link className="" to="/usermanager">User</Link></li>
                             </ul>
                         </li>
                         <li className="sub-menu">

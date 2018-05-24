@@ -21,3 +21,7 @@ export const bookTypes = {
     UPDATE_PUBLISHER_FAIL: 'UPDATE_PUBLISHER_FAIL',
     RESET_PUBLISHER: 'RESET_PUBLISHER',
 }
+
+export const userTypes = {
+    SET_USER: 'SET_USER'
+}
