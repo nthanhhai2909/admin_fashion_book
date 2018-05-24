@@ -18,7 +18,9 @@ export const getUser = () => async (dispatch, getState) => {
 export const deleteUser = (email) => async (dispatch, getState) => {
     let res
     try {
-        res = await axios.get('http://localhost:8080/admin/deleteuser/' + email)
+        res = await axios.post('http://localhost:8080/admin/deleteuser/',{
+            email: email
+        })
     }
     catch (err) {
         console.log(err)
