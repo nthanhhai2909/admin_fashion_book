@@ -225,3 +225,17 @@ export const updatePublisher =  (id, name) => async (dispatch, getState) => {
     dispatch(updatePublisherSuccess())
     dispatch(getPublisher())
 }
+export const backPage = () => (dispatch, getState) => {
+    let page = getState().bookReducers.book.page
+    if(page > 1) {
+        dispatch(setPage(parseInt(page) - 1))
+    }
+}
+
+export const nextPage = () => (dispatch, getState) => {
+    let page = getState().bookReducers.book.page
+    let totalpage = getState().bookReducers.book.totalpage
+    if(page < totalpage) {
+        dispatch(setPage(parseInt(page) + 1))
+    }
+}

@@ -43,22 +43,22 @@ class Book extends Component {
             return (
                 <ul className="pagination pagination-custom col-md-6 offset-md-3">
                     <li onClick={() => this.props.backPage()}
-                    ><Link to='/'>&laquo;</Link></li>
+                    ><a>&laquo;</a></li>
                     {
                         this.state.pagination.map((element, index) => {
                             if (this.props.page === element) {
                                 return (
-                                    <li className="active" onClick={() => this.props.setPage(element)}><Link to='/' >{element}</Link></li>
+                                    <li className="active" onClick={() => this.props.setPage(element)}><a >{element}</a></li>
                                 )
                             } else {
                                 return (
-                                    <li onClick={() => this.props.setPage(element)}><Link to='/' >{element}</Link></li>
+                                    <li onClick={() => this.props.setPage(element)}><a>{element}</a></li>
                                 )
                             }
 
                         })}
                     <li onClick={() => this.props.nextPage()}
-                    ><Link to='/'>&raquo;</Link></li>
+                    ><a >&raquo;</a></li>
                 </ul>
             )
         }
