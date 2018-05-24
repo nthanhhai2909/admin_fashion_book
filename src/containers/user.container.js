@@ -17,9 +17,10 @@ class UserContainer extends Component {
                 user={this.props.user}
                 isadd={this.props.isadd}
                 isupdate={this.props.isupdate}
+                updateUser={(email, firstName, lastName, address, phone_number, is_admin) => this.props.userActions.updateUser(email, firstName, lastName, address, phone_number, is_admin)}
                 deleteUser={(email) => this.props.userActions.deleteUser(email)}
-                addUser={(email, password, firstName, lastName, address, phone_number) => 
-                    this.props.userActions.addUser(email, password, firstName, lastName, address, phone_number)}
+                addUser={(email, password, firstName, lastName, address, phone_number, is_admin) => 
+                    this.props.userActions.addUser(email, password, firstName, lastName, address, phone_number, is_admin)}
             />
         )
     }

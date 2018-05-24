@@ -12,28 +12,52 @@ class Author extends Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        if(nextProps.isadd === false) {
+        if (nextProps.isadd === false) {
             this.setState({
-                noti:'Please Change name'
+                noti: 'Please Change name'
             })
         }
-        else if(nextProps.isadd === true){
+        else if (nextProps.isadd === true) {
             this.setState({
-                noti:'',
+                noti: '',
                 name: ''
             })
         }
-        if(nextProps.isupdate === false) {
+        if (nextProps.isupdate === false) {
             this.setState({
-                noti:'update fail'
+                noti: 'update fail'
             })
         }
-        else if(nextProps.isupdate === true) {
+        else if (nextProps.isupdate === true) {
             this.setState({
-                noti:'',
-                id:null,
-                name:''
+                noti: '',
+                id: null,
+                name: ''
             })
+        }
+    }
+    renderBtn = () => {
+        if (this.state.currType === 'add') {
+            return (
+                <div className="form-group">
+                    <div className="col-lg-offset-2 col-lg-10">
+                        <button onClick={() => this.props.addAuthor(this.state.name)} className="btn btn-primary">Add</button>
+                        <button disabled onClick={() => this.props.updateAuthor(this.state.id, this.state.name)} className="btn btn-primary" >Update</button>
+                    </div>
+                </div>
+            )
+
+        }
+        else {
+            return (
+                <div className="form-group">
+                    <div className="col-lg-offset-2 col-lg-10">
+                        <button  disabled onClick={() => this.props.addAuthor(this.state.name)} className="btn btn-primary">Add</button>
+                        <button  onClick={() => this.props.updateAuthor(this.state.id, this.state.name)} className="btn btn-primary" >Update</button>
+                    </div>
+                </div>
+            )
+
         }
     }
     render() {
@@ -71,7 +95,8 @@ class Author extends Component {
                                                             <a onClick={() => this.setState({
                                                                 currname: element.name,
                                                                 name: element.name,
-                                                                id: element._id
+                                                                id: element._id, 
+                                                                currType: 'update'
                                                             })}
                                                                 className="btn btn-success" ><i className="icon_check_alt2"></i></a>
                                                         </div>
@@ -93,7 +118,7 @@ class Author extends Component {
               </header>
                             <div className="panel-body">
                                 <div className="form">
-                                <div className="form-validate form-horizontal">
+                                    <div className="form-validate form-horizontal">
                                         <div className="form-group ">
                                             <label for="cname" className="control-label col-lg-2">Name <span className="required">*</span></label>
                                             <div className="col-lg-10">
@@ -112,15 +137,10 @@ class Author extends Component {
                                                 <p>{this.state.noti}</p>
                                             </div>
                                         </div>
-                                        <div className="form-group">
-                                            <div className="col-lg-offset-2 col-lg-10">
-                                                <button onClick={() => this.props.addAuthor(this.state.name)} className="btn btn-primary">Add</button>
-                                                <button onClick={() => this.props.updateAuthor(this.state.id, this.state.name)}className="btn btn-primary" >Update</button>
-                                            </div>
-                                        </div>
+                                        {this.renderBtn()}
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </section>
                     </div>

@@ -41,7 +41,7 @@ export const updateUserFail = () => ({
 export const resetUser = () => ({
     type: userTypes.RESET_USER
 })
-export const addUser = (email, password, firstName , lastName, address, phone_number) => async (dispatch, getState) => {
+export const addUser = (email, password, firstName , lastName, address, phone_number, is_admin) => async (dispatch, getState) => {
     dispatch(resetUser())
     let res
     try {
@@ -52,6 +52,7 @@ export const addUser = (email, password, firstName , lastName, address, phone_nu
             password: password,
             address: address,
             phone_number: phone_number,
+            is_admin: is_admin
         })
     }
     catch (err) {
@@ -60,5 +61,25 @@ export const addUser = (email, password, firstName , lastName, address, phone_nu
         return
     }
     dispatch(addUserSuccess())
+    dispatch(getUser())
+}
+export const updateUser = (email, firstName, lastName, address, phone_number, is_admin) => async (dispatch, getState) => {
+    let res
+    try {
+        res = await axios.post('http://localhost:8080/admin/updateuser', {
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            address: address,
+            phone_number: phone_number,
+            is_admin: is_admin
+        })
+    }
+    catch (err) {
+        console.log(err)
+        dispatch(updateUserFail())
+        return
+    }
+    dispatch(updateUserSuccess())
     dispatch(getUser())
 }

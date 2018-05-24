@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-class Author extends Component {
+class User extends Component {
     constructor() {
         super()
         this.state = {
@@ -12,8 +12,9 @@ class Author extends Component {
             firstName: '',
             lastName: '',
             address: '',
-            phone_number: ''
-
+            phone_number: '',
+            currType: 'add', 
+            is_admin: false
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -30,7 +31,8 @@ class Author extends Component {
                 firstName: '',
                 lastName: '',
                 address: '',
-                phone_number: ''
+                phone_number: '',
+                is_admin: false
             })
         }
         if (nextProps.isupdate === false) {
@@ -42,7 +44,14 @@ class Author extends Component {
             this.setState({
                 noti: '',
                 id: null,
-                name: ''
+                name: '',
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                address: '',
+                phone_number: '',
+                is_admin: false
             })
         }
     }
@@ -61,7 +70,7 @@ class Author extends Component {
         return true
     }
     addUser = () => {
-        const { email, password, firstName, lastName, address, phone_number } = this.state
+        const { email, password, firstName, lastName, address, phone_number, is_admin } = this.state
         if (!this.isvalidEmail(email)) {
             this.setState({
                 noti: "Email invalid"
@@ -122,7 +131,110 @@ class Author extends Component {
                 noti: ""
             })
         }
-        this.props.addUser(email, password, firstName, lastName, address, phone_number)
+        this.props.addUser(email, password, firstName, lastName, address, phone_number, is_admin)
+    }
+    renderBtn = () => {
+        const { email, firstName, lastName, address, phone_number, is_admin } = this.state
+        if (this.state.currType === 'add') {
+            return (
+                <div className="form-group">
+                    <div className="col-lg-offset-2 col-lg-10">
+                        <button onClick={() => this.addUser()} className="btn btn-primary btn-custom">Add</button>
+                        <button disabled 
+                             className="btn btn-primary" >Update</button>
+                    </div>
+                </div>
+            )
+
+        }
+        else {
+            return (
+                <div className="form-group">
+                    <div className="col-lg-offset-2 col-lg-10">
+                        <button disabled onClick={() => this.addUser()} className="btn btn-primary">Add</button>
+                        <button 
+                        onClick={() =>
+                            this.props.updateUser(email, firstName, lastName, address, phone_number, is_admin)} 
+                        className="btn btn-primary" >Update</button>
+                    </div>
+                </div>
+            )
+
+        }
+    }
+    renderPassword = () => {
+        if (this.state.currType === 'add') {
+            return (
+                <div className="form-group ">
+                    <label for="cname" className="control-label col-lg-2">Password <span className="required">*</span></label>
+                    <div className="col-lg-10">
+                        <input
+                            value={this.state.password}
+                            onChange={(e) => {
+                                this.setState({
+                                    password: e.target.value
+                                })
+                            }}
+                            className="form-control" id="cname" name="fullname" minlength="5" type="password" required />
+                    </div>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className="form-group ">
+                    <label for="cname" className="control-label col-lg-2">Password <span className="required">*</span></label>
+                    <div className="col-lg-10">
+                        <input
+                            disabled
+                            value={this.state.password}
+                            onChange={(e) => {
+                                this.setState({
+                                    password: e.target.value
+                                })
+                            }}
+                            className="form-control" id="cname" name="fullname" minlength="5" type="password" required />
+                    </div>
+                </div>
+            )
+        }
+    }
+    renderEmail = () => {
+        if (this.state.currType === 'add') {
+            return (
+                <div className="form-group ">
+                    <label for="cname" className="control-label col-lg-2">Email <span className="required">*</span></label>
+                    <div className="col-lg-10">
+                        <input
+                            value={this.state.email}
+                            onChange={(e) => {
+                                this.setState({
+                                    email: e.target.value
+                                })
+                            }}
+                            className="form-control" id="cname" name="fullname" minlength="5" type="text" required />
+                    </div>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className="form-group ">
+                    <label for="cname" className="control-label col-lg-2">Email <span className="required">*</span></label>
+                    <div className="col-lg-10">
+                        <input
+                            disabled
+                            value={this.state.email}
+                            onChange={(e) => {
+                                this.setState({
+                                    email: e.target.value
+                                })
+                            }}
+                            className="form-control" id="cname" name="fullname" minlength="5" type="text" required />
+                    </div>
+                </div>
+            )
+        }
     }
     render() {
         return (
@@ -165,8 +277,14 @@ class Author extends Component {
                                                     <td>
                                                         <div className="btn-group">
                                                             <a onClick={() => this.setState({
-                                                                book: element,
-                                                                curr: "update"
+                                                                email: element.email,
+                                                                firstName: element.firstName,
+                                                                lastName: element.lastName,
+                                                                address: element.address,
+                                                                phone_number: element.phone_number,
+                                                                password: element.phone_number,
+                                                                is_admin: element.is_admin,
+                                                                currType: "update",
                                                             })}
                                                                 className="btn btn-success" ><i className="icon_check_alt2"></i></a>
                                                             <a onClick={() => this.props.deleteUser(element.email)} className="btn btn-danger" ><i className="icon_close_alt2"></i></a>
@@ -190,32 +308,8 @@ class Author extends Component {
                             <div className="panel-body">
                                 <div className="form">
                                     <div className="form-validate form-horizontal">
-                                        <div className="form-group ">
-                                            <label for="cname" className="control-label col-lg-2">Email <span className="required">*</span></label>
-                                            <div className="col-lg-10">
-                                                <input
-                                                    value={this.state.email}
-                                                    onChange={(e) => {
-                                                        this.setState({
-                                                            email: e.target.value
-                                                        })
-                                                    }}
-                                                    className="form-control" id="cname" name="fullname" minlength="5" type="text" required />
-                                            </div>
-                                        </div>
-                                        <div className="form-group ">
-                                            <label for="cname" className="control-label col-lg-2">Password <span className="required">*</span></label>
-                                            <div className="col-lg-10">
-                                                <input
-                                                    value={this.state.password}
-                                                    onChange={(e) => {
-                                                        this.setState({
-                                                            password: e.target.value
-                                                        })
-                                                    }}
-                                                    className="form-control" id="cname" name="fullname" minlength="5" type="password" required />
-                                            </div>
-                                        </div>
+                                        {this.renderEmail()}
+                                        {this.renderPassword()}
                                         <div className="form-group ">
                                             <label for="cname" className="control-label col-lg-2">First Name <span className="required"></span></label>
                                             <div className="col-lg-10">
@@ -270,16 +364,22 @@ class Author extends Component {
                                         </div>
                                         <div className="form-group">
                                             <div className="col-lg-offset-2 col-lg-10">
+                                                <form>
+                                                    <label class="radio-inline">
+                                                        <input checked={this.state.is_admin} onClick={() => this.setState({is_admin: true})}type="radio" name="optradio" />Admin
+                                              </label>
+                                                    <label class="radio-inline">
+                                                        <input checked={!this.state.is_admin} onClick={() => this.setState({is_admin: false})}type="radio" name="optradio" />User
+                                                    </label>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <div className="col-lg-offset-2 col-lg-10">
                                                 <p>{this.state.noti}</p>
                                             </div>
                                         </div>
-
-                                        <div className="form-group">
-                                            <div className="col-lg-offset-2 col-lg-10">
-                                                <button onClick={() => this.addUser()} className="btn btn-primary">Add</button>
-                                                <button onClick={() => this.props.updateAuthor(this.state.id, this.state.name)} className="btn btn-primary" >Update</button>
-                                            </div>
-                                        </div>
+                                        {this.renderBtn()}
                                     </div>
                                 </div>
 
@@ -291,4 +391,4 @@ class Author extends Component {
         )
     }
 }
-export default Author
+export default User

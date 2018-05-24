@@ -8,7 +8,8 @@ class Publisher extends Component {
             currname: null,
             name: null,
             id: null,
-            noti: null
+            noti: null,
+            currType: 'add'
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -20,7 +21,8 @@ class Publisher extends Component {
         else if(nextProps.isadd === true){
             this.setState({
                 noti:'',
-                name: ''
+                name: '',
+                currType: 'add'
             })
         }
         if(nextProps.isupdate === false) {
@@ -32,8 +34,33 @@ class Publisher extends Component {
             this.setState({
                 noti:'',
                 id:null,
-                name:''
+                name:'',
+                currType: 'add'
             })
+        }
+    }
+    renderBtn = () => {
+        if (this.state.currType === 'add') {
+            return (
+                <div className="form-group">
+                <div className="col-lg-offset-2 col-lg-10">
+                    <button onClick={() => this.props.addPublisher(this.state.name)} className="btn btn-primary">Add</button>
+                    <button disabled onClick={() => this.props.updatePublisher(this.state.id, this.state.name)}className="btn btn-primary" >Update</button>
+                </div>
+            </div>
+            )
+            
+        }
+        else {
+            return (
+                <div className="form-group">
+                <div className="col-lg-offset-2 col-lg-10">
+                    <button disabled  onClick={() => this.props.addPublisher(this.state.name)} className="btn btn-primary">Add</button>
+                    <button  onClick={() => this.props.updatePublisher(this.state.id, this.state.name)}className="btn btn-primary" >Update</button>
+                </div>
+            </div>
+            )
+            
         }
     }
     render() {
@@ -71,7 +98,8 @@ class Publisher extends Component {
                                                             <a onClick={() => this.setState({
                                                                 currname: element.name,
                                                                 name: element.name,
-                                                                id: element._id
+                                                                id: element._id,
+                                                                currType: 'update'
                                                             })}
                                                                 className="btn btn-success" ><i className="icon_check_alt2"></i></a>
                                                         </div>
@@ -112,12 +140,7 @@ class Publisher extends Component {
                                                 <p>{this.state.noti}</p>
                                             </div>
                                         </div>
-                                        <div className="form-group">
-                                            <div className="col-lg-offset-2 col-lg-10">
-                                                <button onClick={() => this.props.addPublisher(this.state.name)} className="btn btn-primary">Add</button>
-                                                <button onClick={() => this.props.updatePublisher(this.state.id, this.state.name)}className="btn btn-primary" >Update</button>
-                                            </div>
-                                        </div>
+                                        {this.renderBtn()}
                                     </div>
                                 </div>
                                 
