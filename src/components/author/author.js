@@ -41,8 +41,8 @@ class Author extends Component {
             return (
                 <div className="form-group">
                     <div className="col-lg-offset-2 col-lg-10">
-                        <button onClick={() => this.props.addAuthor(this.state.name)} className="btn btn-primary">Add</button>
-                        <button disabled onClick={() => this.props.updateAuthor(this.state.id, this.state.name)} className="btn btn-primary" >Update</button>
+                        <button onClick={() => this.props.addAuthor(this.state.name)} className="btn-custom">Add</button>
+                        <button disabled onClick={() => this.props.updateAuthor(this.state.id, this.state.name)} className="btn-custom" >Update</button>
                     </div>
                 </div>
             )
@@ -52,8 +52,8 @@ class Author extends Component {
             return (
                 <div className="form-group">
                     <div className="col-lg-offset-2 col-lg-10">
-                        <button  disabled onClick={() => this.props.addAuthor(this.state.name)} className="btn btn-primary">Add</button>
-                        <button  onClick={() => this.props.updateAuthor(this.state.id, this.state.name)} className="btn btn-primary" >Update</button>
+                        <button  disabled onClick={() => this.props.addAuthor(this.state.name)} className="btn-custom">Add</button>
+                        <button  onClick={() => this.props.updateAuthor(this.state.id, this.state.name)} className="btn-custom" >Update</button>
                     </div>
                 </div>
             )

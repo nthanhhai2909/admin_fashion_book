@@ -82,8 +82,8 @@ class Book extends Component {
             return (
                 <div className="form-group">
                     <div className="col-lg-offset-2 col-lg-10">
-                        <button className="btn btn-primary" type="submit">Add</button>
-                        <button className="btn btn-primary" disabled type="button">Update</button>
+                        <button className="btn-custom" type="submit">Add</button>
+                        <button className="btn-custom" disabled type="button">Update</button>
                     </div>
                 </div>
             )
@@ -92,8 +92,8 @@ class Book extends Component {
             return (
                 <div className="form-group">
                     <div className="col-lg-offset-2 col-lg-10">
-                        <button className="btn btn-primary" disabled type="submit">Add</button>
-                        <button className="btn btn-primary" type="button">Update</button>
+                        <button className="btn-custom" disabled type="submit">Add</button>
+                        <button className="btn-custom" type="button">Update</button>
                     </div>
                 </div>
             )

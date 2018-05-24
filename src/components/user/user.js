@@ -139,9 +139,9 @@ class User extends Component {
             return (
                 <div className="form-group">
                     <div className="col-lg-offset-2 col-lg-10">
-                        <button onClick={() => this.addUser()} className="btn btn-primary btn-custom">Add</button>
+                        <button onClick={() => this.addUser()} className="btn-custom">Add</button>
                         <button disabled 
-                             className="btn btn-primary" >Update</button>
+                             className="btn-custom" >Update</button>
                     </div>
                 </div>
             )
@@ -151,11 +151,11 @@ class User extends Component {
             return (
                 <div className="form-group">
                     <div className="col-lg-offset-2 col-lg-10">
-                        <button disabled onClick={() => this.addUser()} className="btn btn-primary">Add</button>
+                        <button disabled onClick={() => this.addUser()} className="btn-custom">Add</button>
                         <button 
                         onClick={() =>
                             this.props.updateUser(email, firstName, lastName, address, phone_number, is_admin)} 
-                        className="btn btn-primary" >Update</button>
+                        className="btn-custom" >Update</button>
                     </div>
                 </div>
             )

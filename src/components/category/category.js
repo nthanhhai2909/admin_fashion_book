@@ -47,8 +47,8 @@ class Category extends Component {
             return (
                 <div className="form-group">
                 <div className="col-lg-offset-2 col-lg-10">
-                    <button onClick={() => this.add()} style={{}} className="btn btn-primary" >Add</button>
-                    <button disabled onClick={() => this.props.updateCategory(this.state.id, this.state.name)} className="btn btn-primary" >Update</button>
+                    <button onClick={() => this.add()} style={{}} className="btn-custom" >Add</button>
+                    <button disabled onClick={() => this.props.updateCategory(this.state.id, this.state.name)} className="btn-custom" >Update</button>
                 </div>
             </div>
             )
@@ -58,8 +58,8 @@ class Category extends Component {
             return (
                 <div className="form-group">
                 <div className="col-lg-offset-2 col-lg-10">
-                    <button disabled onClick={() => this.add()} className="btn btn-primary">Add</button>
-                    <button onClick={() => this.props.updateCategory(this.state.id, this.state.name)} className="btn btn-primary" >Update</button>
+                    <button disabled onClick={() => this.add()} className="btn-custom">Add</button>
+                    <button onClick={() => this.props.updateCategory(this.state.id, this.state.name)} className="btn-custom" >Update</button>
                 </div>
             </div>
             )
