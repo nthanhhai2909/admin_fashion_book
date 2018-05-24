@@ -15,13 +15,19 @@ class UserContainer extends Component {
         return (
             <User
                 user={this.props.user}
+                isadd={this.props.isadd}
+                isupdate={this.props.isupdate}
                 deleteUser={(email) => this.props.userActions.deleteUser(email)}
+                addUser={(email, password, firstName, lastName, address, phone_number) => 
+                    this.props.userActions.addUser(email, password, firstName, lastName, address, phone_number)}
             />
         )
     }
 }
 const mapStateToProps = state => ({
-    user: state.userReducers.user.data
+    user: state.userReducers.user.data,
+    isadd: state.userReducers.user.isadd,
+    isupdate: state.userReducers.user.isupdate
 })
 
 const mapDispatchToProps = dispatch => {

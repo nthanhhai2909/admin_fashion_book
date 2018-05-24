@@ -6,10 +6,123 @@ class Author extends Component {
         this.state = {
             name: null,
             id: null,
-            noti: null
+            noti: null,
+            email: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            address: '',
+            phone_number: ''
+
         }
     }
     componentWillReceiveProps(nextProps) {
+        if (nextProps.isadd === false) {
+            this.setState({
+                noti: 'Email already exist '
+            })
+        }
+        else if (nextProps.isadd === true) {
+            this.setState({
+                noti: '',
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                address: '',
+                phone_number: ''
+            })
+        }
+        if (nextProps.isupdate === false) {
+            this.setState({
+                noti: 'Update fail'
+            })
+        }
+        else if (nextProps.isupdate === true) {
+            this.setState({
+                noti: '',
+                id: null,
+                name: ''
+            })
+        }
+    }
+    isvalidEmail = (email) => {
+        if (email.length < 6 || email.indexOf(".") === -1 || email.indexOf("@") === -1)
+            return false
+        return true
+    }
+    isvalidPhone = (phone) => {
+        if (phone.length < 10)
+            return false
+        for (let i = 0; i < phone.length; i++) {
+            if (phone.charAt(i) < '0' || phone.charAt(i) > '9')
+                return false
+        }
+        return true
+    }
+    addUser = () => {
+        const { email, password, firstName, lastName, address, phone_number } = this.state
+        if (!this.isvalidEmail(email)) {
+            this.setState({
+                noti: "Email invalid"
+            })
+            return
+        } else {
+            this.setState({
+                noti: ""
+            })
+        }
+        if (password.length < 6) {
+            this.setState({
+                noti: "Password invalid"
+            })
+            return
+        } else {
+            this.setState({
+                noti: ""
+            })
+        }
+        if (firstName.length < 3) {
+            this.setState({
+                noti: "First name invalid"
+            })
+            return
+        } else {
+            this.setState({
+                noti: ""
+            })
+        }
+        if (lastName.length < 3) {
+            this.setState({
+                noti: "Last name invalid"
+            })
+            return
+        } else {
+            this.setState({
+                noti: ""
+            })
+        }
+        if (address.length < 3) {
+            this.setState({
+                noti: "Address invalid"
+            })
+            return
+        } else {
+            this.setState({
+                noti: ""
+            })
+        }
+        if (!this.isvalidPhone(this.state.phone_number)) {
+            this.setState({
+                noti: "Phone invalid"
+            })
+            return
+        } else {
+            this.setState({
+                noti: ""
+            })
+        }
+        this.props.addUser(email, password, firstName, lastName, address, phone_number)
     }
     render() {
         return (
@@ -76,14 +189,31 @@ class Author extends Component {
               </header>
                             <div className="panel-body">
                                 <div className="form">
-                                <div className="form-validate form-horizontal">
+                                    <div className="form-validate form-horizontal">
                                         <div className="form-group ">
                                             <label for="cname" className="control-label col-lg-2">Email <span className="required">*</span></label>
                                             <div className="col-lg-10">
                                                 <input
-                                                    disabled
-                                                    value={this.state.name}
+                                                    value={this.state.email}
+                                                    onChange={(e) => {
+                                                        this.setState({
+                                                            email: e.target.value
+                                                        })
+                                                    }}
                                                     className="form-control" id="cname" name="fullname" minlength="5" type="text" required />
+                                            </div>
+                                        </div>
+                                        <div className="form-group ">
+                                            <label for="cname" className="control-label col-lg-2">Password <span className="required">*</span></label>
+                                            <div className="col-lg-10">
+                                                <input
+                                                    value={this.state.password}
+                                                    onChange={(e) => {
+                                                        this.setState({
+                                                            password: e.target.value
+                                                        })
+                                                    }}
+                                                    className="form-control" id="cname" name="fullname" minlength="5" type="password" required />
                                             </div>
                                         </div>
                                         <div className="form-group ">
@@ -92,10 +222,10 @@ class Author extends Component {
                                                 <input
                                                     onChange={e => {
                                                         this.setState({
-                                                            name: e.target.value
+                                                            firstName: e.target.value
                                                         })
                                                     }}
-                                                    value={this.state.name}
+                                                    value={this.state.firstName}
                                                     className="form-control" id="cname" name="fullname" minlength="5" type="text" required />
                                             </div>
                                         </div>
@@ -105,10 +235,10 @@ class Author extends Component {
                                                 <input
                                                     onChange={e => {
                                                         this.setState({
-                                                            name: e.target.value
+                                                            lastName: e.target.value
                                                         })
                                                     }}
-                                                    value={this.state.name}
+                                                    value={this.state.lastName}
                                                     className="form-control" id="cname" name="fullname" minlength="5" type="text" required />
                                             </div>
                                         </div>
@@ -118,10 +248,10 @@ class Author extends Component {
                                                 <input
                                                     onChange={e => {
                                                         this.setState({
-                                                            name: e.target.value
+                                                            address: e.target.value
                                                         })
                                                     }}
-                                                    value={this.state.name}
+                                                    value={this.state.address}
                                                     className="form-control" id="cname" name="fullname" minlength="5" type="text" required />
                                             </div>
                                         </div>
@@ -131,10 +261,10 @@ class Author extends Component {
                                                 <input
                                                     onChange={e => {
                                                         this.setState({
-                                                            name: e.target.value
+                                                            phone_number: e.target.value
                                                         })
                                                     }}
-                                                    value={this.state.name}
+                                                    value={this.state.phone_number}
                                                     className="form-control" id="cname" name="fullname" minlength="5" type="text" required />
                                             </div>
                                         </div>
@@ -143,16 +273,16 @@ class Author extends Component {
                                                 <p>{this.state.noti}</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="form-group">
                                             <div className="col-lg-offset-2 col-lg-10">
-                                                <button onClick={() => this.props.addAuthor(this.state.name)} className="btn btn-primary">Add</button>
-                                                <button onClick={() => this.props.updateAuthor(this.state.id, this.state.name)}className="btn btn-primary" >Update</button>
+                                                <button onClick={() => this.addUser()} className="btn btn-primary">Add</button>
+                                                <button onClick={() => this.props.updateAuthor(this.state.id, this.state.name)} className="btn btn-primary" >Update</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </section>
                     </div>
