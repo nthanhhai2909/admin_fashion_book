@@ -15,6 +15,7 @@ class UserContainer extends Component {
         return (
             <User
                 user={this.props.user}
+                deleteUser={(email) => this.props.userActions.deleteUser(email)}
             />
         )
     }

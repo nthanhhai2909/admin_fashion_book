@@ -15,3 +15,14 @@ export const getUser = () => async (dispatch, getState) => {
     }
     dispatch(setUser(res.data.data))
 }
+export const deleteUser = (email) => async(dispatch, getState) => {
+    let res
+    try {
+        res = await axios.get('http://localhost:8080/admin/deleteuser/' + email)
+    }
+    catch (err) {
+        console.log(err)
+        return
+    }
+    dispatch(getUser())
+}

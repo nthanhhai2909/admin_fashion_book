@@ -56,7 +56,7 @@ class Author extends Component {
                                                                 curr: "update"
                                                             })}
                                                                 className="btn btn-success" ><i className="icon_check_alt2"></i></a>
-                                                            <a onClick={() => this.props.deleteBook(element._id)} className="btn btn-danger" ><i className="icon_close_alt2"></i></a>
+                                                            <a onClick={() => this.props.deleteUser(element.email)} className="btn btn-danger" ><i className="icon_close_alt2"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>
