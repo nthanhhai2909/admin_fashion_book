@@ -29,6 +29,10 @@ class BookContainer extends Component {
           backPage={() => this.props.bookActions.backPage()}
           nextPage={() => this.props.bookActions.nextPage()}
           setPage={page => this.props.bookActions.setPage(page)}
+          isadd={this.props.isadd}
+          isupdate={this.props.isupdate}  
+          addBook={(id_category, name, price, release_date, describe, id_nsx, id_author, file) => 
+                this.props.bookActions.addBook(id_category, name, price, release_date, describe, id_nsx, id_author, file)}
         />
       </div>
     );
@@ -40,7 +44,9 @@ const mapStateToProps = state => ({
   page: state.bookReducers.book.page,
   category: state.bookReducers.category.data,
   publisher: state.bookReducers.publisher.data,
-  author: state.bookReducers.author.data
+  author: state.bookReducers.author.data,
+  isadd: state.bookReducers.book.isadd,
+  isupdate: state.bookReducers.book.isupdate
 });
 
 const mapDispatchToProps = dispatch => {

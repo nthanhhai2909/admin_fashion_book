@@ -148,6 +148,37 @@ const book = (state = {
                 totalpage: action.totalpage
             }
         }
+        case bookTypes.ADD_BOOK_SUCCESS: {
+            return {
+                ...state,
+                isadd: true
+            }
+        }
+        case bookTypes.ADD_BOOK_FAIL: {
+            return {
+                ...state,
+                isadd: false
+            }
+        }
+        case bookTypes.UPDATE_BOOK_SUCCESS: {
+            return {
+                ...state,
+                isupdate: true
+            }
+        }
+        case bookTypes.UPDATE_BOOK_FAIL: {
+            return {
+                ...state,
+                isupdate: false
+            }
+        }
+        case bookTypes.RESET_BOOK: {
+            return {
+                ...state,
+                isadd: null,
+                isupdate: null
+            }
+        }
         default: return state
     }
 }
