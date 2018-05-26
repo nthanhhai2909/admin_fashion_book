@@ -33,6 +33,8 @@ class BookContainer extends Component {
           isupdate={this.props.isupdate}  
           addBook={(id_category, name, price, release_date, describe, id_nsx, id_author, file) => 
                 this.props.bookActions.addBook(id_category, name, price, release_date, describe, id_nsx, id_author, file)}
+          updateBook={(id, name, id_category, price, release_date, describe, id_nsx, id_author, file ) =>
+             this.props.bookActions.updateBook(id, name, id_category, price, release_date, describe, id_nsx, id_author, file)}
         />
       </div>
     );

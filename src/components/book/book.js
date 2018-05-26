@@ -45,6 +45,50 @@ class Book extends Component {
         imagePreviewUrl: nextProps.book.img
       });
     }
+    if (nextProps.isadd === true) {
+      this.setState({
+        noti: "",
+        name: "",
+        file: null,
+        imagePreviewUrl: null,
+        curr: "add",
+        category: "category",
+        publisher: "publisher",
+        author: "author",
+        name: "",
+        release_date: null,
+        price: "",
+        img: "",
+        describe: "",
+        id_nsx: "",
+        id_author: "",
+        id_category: "",
+        noti: "",
+        id: null
+      });
+    } 
+    if(nextProps.isupdate === true) {
+      this.setState({
+        noti: "",
+        name: "",
+        file: null,
+        imagePreviewUrl: null,
+        curr: "add",
+        category: "category",
+        publisher: "publisher",
+        author: "author",
+        name: "",
+        release_date: null,
+        price: "",
+        img: "",
+        describe: "",
+        id_nsx: "",
+        id_author: "",
+        id_category: "",
+        noti: "",
+        id: null
+      });
+    }
   }
   renderPagination() {
     if (this.state.pagination.length === 0) {
@@ -90,27 +134,25 @@ class Book extends Component {
     };
     reader.readAsDataURL(img);
   };
-  invalidPrice = (str) => {
-        let count = 0;
-        for (let i = 0; i < str.length; i++) {
-            if (str.charAt(i) == '+' || str.charAt(i) == '-')
-                count++;
-            else break;
-        }
-        str = str.substring(count, str.length);
-        count = 0;
-        for (let i = 0; i < str.length; i++) {
-            if (str.charAt(i) == '.') {
-                count++;
-            }
-            if ((str.charAt(i) < '0' || str.charAt(i) > '9'))
-                return false;
-        }
-    
-        if (count > 1)
-            return false;
-        return !isNaN(Number.parseFloat(str));
-  }
+  invalidPrice = t => {
+    console.log(t);
+    var str = t.toString();
+    let count = 0;
+    for (let i = 0; i < str.length; i++) {
+      if (str.charAt(i) == "+" || str.charAt(i) == "-") count++;
+      else break;
+    }
+    str = str.substring(count, str.length);
+    count = 0;
+    for (let i = 0; i < str.length; i++) {
+      if (str.charAt(i) == ".") {
+        count++;
+      }
+      if (str.charAt(i) < "0" || str.charAt(i) > "9") return false;
+    }
+    if (count > 1) return false;
+    return !isNaN(Number.parseFloat(str));
+  };
   submitAddBook = () => {
     const {
       id_category,
@@ -142,50 +184,156 @@ class Book extends Component {
         noti: ""
       });
     }
-    if(!this.invalidPrice(price)) {
-        this.setState({
-            noti: "Price invalid"
-          });
-          return
+    if (!this.invalidPrice(price)) {
+      this.setState({
+        noti: "Price invalid"
+      });
+      return;
     } else {
-        this.setState({
-            noti: ""
-          });
+      this.setState({
+        noti: ""
+      });
     }
-    if(id_category === '') {
-        this.setState({
-            noti: "Category invalid"
-        })
-        return
+    if (id_category === "") {
+      this.setState({
+        noti: "Category invalid"
+      });
+      return;
     } else {
-        this.setState({
-            noti: ""
-        })
+      this.setState({
+        noti: ""
+      });
     }
-    if(id_author === '') {
-        this.setState({
-            noti: 'Author invalid'
-        })
-        return
+    if (id_author === "") {
+      this.setState({
+        noti: "Author invalid"
+      });
+      return;
     } else {
-        this.setState({
-            noti: ""
-        })
+      this.setState({
+        noti: ""
+      });
     }
 
-    if(id_nsx === '') {
-        this.setState({
-            noti: 'Publisher invalid'
-        })
-        return
+    if (id_nsx === "") {
+      this.setState({
+        noti: "Publisher invalid"
+      });
+      return;
     } else {
-        this.setState({
-            noti: ''
-        })
+      this.setState({
+        noti: ""
+      });
+    }
+    if (file === null) {
+      this.setState({
+        noti: "File invalid"
+      });
+      return;
+    } else {
+      this.setState({
+        noti: ""
+      });
     }
     this.props.addBook(
       id_category,
       name,
+      price,
+      release_date,
+      describe,
+      id_nsx,
+      id_author,
+      file
+    );
+  };
+  submitUpdateBook = () => {
+    const {
+      id_category,
+      name,
+      price,
+      release_date,
+      describe,
+      id_nsx,
+      id_author,
+      file,
+      id, 
+      img
+    } = this.state;
+    if (name.length <= 0) {
+      this.setState({
+        noti: "Name invalid"
+      });
+      return;
+    } else {
+      this.setState({
+        noti: ""
+      });
+    }
+    if (release_date === null) {
+      this.setState({
+        noti: "Day invalid"
+      });
+      return;
+    } else {
+      this.setState({
+        noti: ""
+      });
+    }
+    if (this.invalidPrice(price)) {
+      this.setState({
+        noti: "Price invalid"
+      });
+      return;
+    } else {
+      this.setState({
+        noti: ""
+      });
+    }
+    if (id_category === "") {
+      this.setState({
+        noti: "Category invalid"
+      });
+      return;
+    } else {
+      this.setState({
+        noti: ""
+      });
+    }
+    if (id_author === "") {
+      this.setState({
+        noti: "Author invalid"
+      });
+      return;
+    } else {
+      this.setState({
+        noti: ""
+      });
+    }
+
+    if (id_nsx === "") {
+      this.setState({
+        noti: "Publisher invalid"
+      });
+      return;
+    } else {
+      this.setState({
+        noti: ""
+      });
+    }
+    if (file === null && img === '' ) {
+      this.setState({
+        noti: "File invalid"
+      });
+      return;
+    } else {
+      this.setState({
+        noti: ""
+      });
+    }
+    this.props.updateBook(
+      id,
+      name,
+      id_category,
       price,
       release_date,
       describe,
@@ -219,7 +367,11 @@ class Book extends Component {
             <button className="btn-custom" disabled type="submit">
               Add
             </button>
-            <button className="btn-custom" type="button">
+            <button
+              className="btn-custom"
+              onClick={() => this.submitUpdateBook()}
+              type="button"
+            >
               Update
             </button>
           </div>
@@ -293,7 +445,7 @@ class Book extends Component {
   };
   getNamePublisherByID = id => {
     for (let i = 0; i < this.props.publisher.length; i++) {
-      console.log(id + " === " + this.props.publisher[i]._id)
+      console.log(id + " === " + this.props.publisher[i]._id);
       if (id === this.props.publisher[i]._id)
         return this.props.publisher[i].name;
     }
@@ -366,13 +518,17 @@ class Book extends Component {
                                   category: this.getNameCategoryByID(
                                     element.id_category
                                   ),
+                                  id_category: element.id_category,
+                                  id_author: element.id_author,
+                                  id_nsx: element.id_nsx,
                                   author: this.getNameAuthorByID(
                                     element.id_author
                                   ),
                                   publisher: this.getNamePublisherByID(
                                     element.id_nsx
                                   ),
-                                  img: element.img
+                                  img: element.img,
+                                  id: element._id
                                 })
                               }
                               className="btn btn-success"
@@ -577,7 +733,7 @@ class Book extends Component {
                       </div>
                     </div>
                     {this.renderBtnSubmit()}
-                </div>
+                  </div>
                 </div>
               </div>
             </section>
