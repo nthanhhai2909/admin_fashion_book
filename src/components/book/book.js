@@ -21,7 +21,8 @@ class Book extends Component {
       id_nsx: "",
       id_author: "",
       id_category: "",
-      noti: ""
+      noti: "",
+      id: null
     };
   }
   componentWillMount() {
@@ -265,7 +266,7 @@ class Book extends Component {
   };
   renderMenuPublisher = () => {
     if (this.props.publisher) {
-      return this.props.author.map((element, index) => {
+      return this.props.publisher.map((element, index) => {
         return (
           <li
             onClick={() =>
@@ -292,6 +293,7 @@ class Book extends Component {
   };
   getNamePublisherByID = id => {
     for (let i = 0; i < this.props.publisher.length; i++) {
+      console.log(id + " === " + this.props.publisher[i]._id)
       if (id === this.props.publisher[i]._id)
         return this.props.publisher[i].name;
     }
