@@ -46,48 +46,10 @@ class Book extends Component {
       });
     }
     if (nextProps.isadd === true) {
-      this.setState({
-        noti: "",
-        name: "",
-        file: null,
-        imagePreviewUrl: null,
-        curr: "add",
-        category: "category",
-        publisher: "publisher",
-        author: "author",
-        name: "",
-        release_date: null,
-        price: "",
-        img: "",
-        describe: "",
-        id_nsx: "",
-        id_author: "",
-        id_category: "",
-        noti: "",
-        id: null
-      });
+      this.reset()
     } 
     if(nextProps.isupdate === true) {
-      this.setState({
-        noti: "",
-        name: "",
-        file: null,
-        imagePreviewUrl: null,
-        curr: "add",
-        category: "category",
-        publisher: "publisher",
-        author: "author",
-        name: "",
-        release_date: null,
-        price: "",
-        img: "",
-        describe: "",
-        id_nsx: "",
-        id_author: "",
-        id_category: "",
-        noti: "",
-        id: null
-      });
+      this.reset()
     }
   }
   renderPagination() {
@@ -125,6 +87,8 @@ class Book extends Component {
     }
   }
   handleChangeImg = img => {
+    if(img === undefined)
+      return
     let reader = new FileReader();
     reader.onloadend = () => {
       this.setState({
@@ -135,7 +99,6 @@ class Book extends Component {
     reader.readAsDataURL(img);
   };
   invalidPrice = t => {
-    console.log(t);
     var str = t.toString();
     let count = 0;
     for (let i = 0; i < str.length; i++) {
@@ -279,7 +242,7 @@ class Book extends Component {
         noti: ""
       });
     }
-    if (this.invalidPrice(price)) {
+    if (!this.invalidPrice(price)) {
       this.setState({
         noti: "Price invalid"
       });
@@ -357,6 +320,7 @@ class Book extends Component {
             <button className="btn-custom" disabled type="button">
               Update
             </button>
+            <button className="btn-custom" onClick={() => this.reset()}>Reset</button>
           </div>
         </div>
       );
@@ -374,11 +338,34 @@ class Book extends Component {
             >
               Update
             </button>
+            <button className="btn-custom" onClick={() => this.reset()}>Reset</button>
           </div>
         </div>
       );
     }
   };
+  reset = () => {
+    this.setState({
+      noti: "",
+        name: "",
+        file: null,
+        imagePreviewUrl: null,
+        curr: "add",
+        category: "category",
+        publisher: "publisher",
+        author: "author",
+        name: "",
+        release_date: null,
+        price: "",
+        img: "",
+        describe: "",
+        id_nsx: "",
+        id_author: "",
+        id_category: "",
+        noti: "",
+        id: null
+    })
+  }
   renderMenuCategory = () => {
     if (this.props.category) {
       return this.props.category.map((element, index) => {
@@ -557,7 +544,7 @@ class Book extends Component {
             <section className="panel">
               <header className="panel-heading">Form validations</header>
               <div className="panel-body">
-                <div className="form">
+                <div className="form" id="from-book">
                   <div
                     className="form-validate form-horizontal"
                     id="feedback_form"
