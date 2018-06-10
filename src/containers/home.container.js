@@ -1,14 +1,30 @@
-import React, { Component } from 'react'
-import Home from '../components/home/home'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as homeActions from "../actions/home.action";
+import Home from "../components/home/home";
 class HomeContainer extends Component {
-    
-    render() {
-        return(
-            <div>
-                <Home/>
-            </div>
-        )
-    }
-
+  componentWillMount() {
+    this.props.homeActions.getTopProduct();
+  }
+  render() {
+    return (
+      <div>
+        <Home top_product={this.props.top_product} />
+      </div>
+    );
+  }
 }
-export default HomeContainer
+const mapStateToProps = state => ({
+  top_product: state.homeReducers.home.top_product
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    homeActions: bindActionCreators(homeActions, dispatch)
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeContainer);

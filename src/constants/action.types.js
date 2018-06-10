@@ -35,3 +35,7 @@ export const userTypes = {
     UPDATE_USER_FAIL: 'UPDATE_USER_FAIL',
     RESET_USER: 'RESET_USER',
 }
+
+export const homeTypes = {
+    SET_TOP_PRODUCT:' SET_TOP_PRODUCT'
+}
