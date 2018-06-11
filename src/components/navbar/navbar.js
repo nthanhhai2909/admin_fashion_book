@@ -233,7 +233,7 @@ class Navbar extends Component {
                                     <a href="#"><i className="icon_chat_alt"></i> Chats</a>
                                 </li>
                                 <li>
-                                    <a href="login.html"><i className="icon_key_alt"></i> Log Out</a>
+                                    <a onClick={() => this.props.logout()}><i className="icon_key_alt"></i> Log Out</a>
                                 </li>
                                 <li>
                                     <a href="documentation.html"><i className="icon_key_alt"></i> Documentation</a>

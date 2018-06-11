@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { userTypes } from '../constants/action.types'
+import storeConfig from '../config/store.config'
 export const setUser = (data) => ({
     type: userTypes.SET_USER,
     data
@@ -84,4 +85,44 @@ export const updateUser = (email, firstName, lastName, address, phone_number, is
     }
     dispatch(updateUserSuccess())
     dispatch(getUser())
+}
+export const loginSuccess = (token, user) => async (dispatch, getState) => {
+    storeConfig.setUser(user)
+    storeConfig.setToken(token)
+    dispatch(setLoginSuccess())
+}
+export const setLoginSuccess = () => ({
+    type: userTypes.LOGIN_SUCCESS,
+    data: 'login success'
+})
+export const setLoginFail = () => ({
+    type: userTypes.LOGIN_FAIL,
+    data: 'login fail'   
+})
+export const auth = () => async (dispatch, getState)  => {
+    if(storeConfig.getUser() === null){
+        dispatch(setLoginFail())
+        return false
+    }
+    let email = storeConfig.getUser().email
+    let token = storeConfig.getToken()
+    console.log(email)
+    let res
+    try {
+        res = await axios.post('http://localhost:8080/auth', {
+            email: email,
+            token: token,
+        })
+    }
+    catch (err) {
+        dispatch(setLoginFail())
+        return false
+    }
+    dispatch(setLoginSuccess())
+    return true
+}
+export const logout = () => (dispatch, getState) => {
+    console.log('logout ')
+    storeConfig.clear()
+    dispatch(setLoginFail())
 }

@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 class Slider extends Component {
     render() {
         return (
-            <aside>
                 <div id="sidebar" className="nav-collapse ">
                     <ul className="sidebar-menu">
                         <li className="active">
@@ -13,17 +12,17 @@ class Slider extends Component {
                             </a>
                         </li>
                         <li className="sub-menu">
-                            <a href="javascript:;" className="">
+                            <a href="javascript:" className=""> 
                                 <i className="icon_document_alt"></i>
                                 <span>Manager</span>
                                 <span className="menu-arrow arrow_carrot-right"></span>
                             </a>
                             <ul className="sub">
-                                <li><Link className="" to="/bookmanager">Book </Link></li>
-                                <li><Link className="" to="/categorymanager">Category </Link></li>
-                                <li><Link className="" to="/publishermanager">Publisher</Link></li>
-                                <li><Link className="" to="/authormanager">Author</Link></li>
-                                <li><Link className="" to="/usermanager">User</Link></li>
+                                <li><a className="" href="/bookmanager">Book </a></li>
+                                <li><a className="" href="/categorymanager">Category </a></li>
+                                <li><a className="" href="/publishermanager">Publisher</a></li>
+                                <li><a className="" href="/authormanager">Author</a></li>
+                                <li><a className="" href="/usermanager">User</a></li>
                             </ul>
                         </li>
                         <li className="sub-menu">
@@ -81,7 +80,6 @@ class Slider extends Component {
 
                     </ul>
       </div>
-            </aside>
         )
     }
 }

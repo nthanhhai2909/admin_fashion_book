@@ -41,6 +41,18 @@ const user = (state = {
                 isupdate: null
             }
         }
+        case userTypes.LOGIN_SUCCESS: {
+            return {
+                ...state,
+                islogin: true
+            }
+        }
+        case userTypes.LOGIN_FAIL: {
+            return {
+                ...state,
+                islogin: false
+            }
+        }
         default: return state
     }
 }
