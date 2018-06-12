@@ -23,6 +23,9 @@ class PublisherContainer extends Component {
     ) {
       this.props.history.push("/login");
     }
+    if (nextProps.page !== this.props.page) {
+      this.props.bookActions.getPublisher();
+    }
   }
   render() {
     return (
@@ -37,6 +40,11 @@ class PublisherContainer extends Component {
             this.props.bookActions.updatePublisher(id, name)
           }
           isupdate={this.props.isupdate}
+          page={this.props.page}
+          totalpage={this.props.totalpage}
+          backPage={() => this.props.bookActions.publisherBackPage()}
+          nextPage={() => this.props.bookActions.publisherNextPage()}
+          setPage={page => this.props.bookActions.publisherSetPage(page)}
         />
       </section>
     );
@@ -45,7 +53,9 @@ class PublisherContainer extends Component {
 const mapStateToProps = state => ({
   publisher: state.bookReducers.publisher.data,
   isadd: state.bookReducers.publisher.isadd,
-  isupdate: state.bookReducers.publisher.isupdate
+  isupdate: state.bookReducers.publisher.isupdate,
+  totalpage: state.bookReducers.publisher.totalpage,
+  page: state.bookReducers.publisher.page
 });
 
 const mapDispatchToProps = dispatch => {

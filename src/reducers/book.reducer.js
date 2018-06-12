@@ -54,7 +54,7 @@ const category = (state = { data: [], page: 1, totalpage: null }, action) => {
         default: return state
     }
 }
-const publisher = (state = { data: [] }, action) => {
+const publisher = (state = { data: [], page: 1, totalpage: null }, action) => {
     switch (action.type) {
         case bookTypes.SET_PUBLISHSER: {
             return {
@@ -91,6 +91,18 @@ const publisher = (state = { data: [] }, action) => {
                 ...state,
                 isadd: null,
                 isupdate: null
+            }
+        }
+        case bookTypes.PUBLISHER_SET_PAGE: {
+            return {
+                ...state,
+                page: action.page
+            }
+        }
+        case bookTypes.PUBLISHER_SET_TOTAL_PAGE: {
+            return {
+                ...state,
+                totalpage: action.totalpage
             }
         }
         default: return state
