@@ -23,6 +23,9 @@ class CategoryContainer extends Component {
         ) {
           this.props.history.push("/login");
         }
+        if (nextProps.page !== this.props.page) {
+            this.props.bookActions.getCategory();
+          }
       }
     render() {
         return (
@@ -35,6 +38,11 @@ class CategoryContainer extends Component {
                 isadd={this.props.isadd}
                 updateCategory={(id, name) => this.props.bookActions.updateCategory(id, name)}
                 isupdate={this.props.isupdate}
+                page={this.props.page}
+                totalpage={this.props.totalpage}
+                backPage={() => this.props.bookActions.categoryBackPage()}
+                nextPage={() => this.props.bookActions.categoryNextPage()}
+                setPage={page => this.props.bookActions.categorySetPage(page)}
             />
             </section>
             
@@ -45,7 +53,9 @@ const mapStateToProps = state => ({
     category: state.bookReducers.category.data,
     isadd: state.bookReducers.category.isadd,
     isupdate: state.bookReducers.category.isupdate,
-    islogin: state.userReducers.user.islogin
+    islogin: state.userReducers.user.islogin,
+    totalpage: state.bookReducers.category.totalpage,
+    page: state.bookReducers.category.page
 })
 
 const mapDispatchToProps = dispatch => {

@@ -35,6 +35,14 @@ export const authorSetTotalPage = (totalpage) => ({
     type: bookTypes.AUTHOR_SET_TOTAL_PAGE,
     totalpage
 })
+export const categorySetPage = (page) => ({
+    type: bookTypes.CATEGORY_SET_PAGE,
+    page
+})
+export const categorySetTotalPage = (totalpage) => ({
+    type: bookTypes.CATEGORY_SET_TOTAL_PAGE,
+    totalpage
+})
 export const deleteBook = (id) => async(dispatch, getState) => {
     let res
     try {
@@ -51,12 +59,13 @@ export const deleteBook = (id) => async(dispatch, getState) => {
 export const getCategory = () => async (dispatch, getState) =>  {
     let res
     try {
-        res = await axios.get('http://localhost:8080/category/all')
+        res = await axios.get('http://localhost:8080/category/all/' + getState().bookReducers.category.page)
     }
     catch (err) {
         return
     }
     dispatch(setCategory(res.data.data))
+    dispatch(categorySetTotalPage(res.data.totalPage))
 }
 
 export const getPublisher = () => async (dispatch, getState) => {
@@ -260,6 +269,20 @@ export const authorNextPage = () => (dispatch, getState) => {
     let totalpage = getState().bookReducers.author.totalpage
     if(page < totalpage) {
         dispatch(authorSetPage(parseInt(page) + 1))
+    }
+}
+export const categoryBackPage = () => (dispatch, getState) => {
+    let page = getState().bookReducers.category.page
+    if(page > 1) {
+        dispatch(categorySetPage(parseInt(page) - 1))
+    }
+}
+
+export const categoryNextPage = () => (dispatch, getState) => {
+    let page = getState().bookReducers.category.page
+    let totalpage = getState().bookReducers.category.totalpage
+    if(page < totalpage) {
+        dispatch(categorySetPage(parseInt(page) + 1))
     }
 }
 export const addBookSuccess = () => ({

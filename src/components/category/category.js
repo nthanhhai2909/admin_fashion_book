@@ -12,7 +12,21 @@ class Category extends Component {
       currType: "add"
     };
   }
+  componentWillMount() {
+    let tmp = [];
+    for (let i = 1; i <= this.props.totalpage; i++) {
+      tmp.push(i);
+    }
+    this.setState({ pagination: tmp });
+  }
   componentWillReceiveProps(nextProps) {
+    if (nextProps.totalpage !== this.props.totalpage) {
+      let tmp = [];
+      for (let i = 1; i <= nextProps.totalpage; i++) {
+        tmp.push(i);
+      }
+      this.setState({ pagination: tmp });
+    }
     if (nextProps.isadd === false) {
       this.setState({
         noti: "Please Change name"
@@ -40,6 +54,40 @@ class Category extends Component {
   add = () => {
     this.props.addCategory(this.state.name);
   };
+  renderPagination() {
+    if (this.state.pagination.length === 0) {
+      return null;
+    } else {
+      return (
+        <ul className="pagination pagination-custom col-md-6 offset-md-3">
+          <li onClick={() => this.props.backPage()}>
+            <a>&laquo;</a>
+          </li>
+          {this.state.pagination.map((element, index) => {
+            if (this.props.page === element) {
+              return (
+                <li
+                  className="active"
+                  onClick={() => this.props.setPage(element)}
+                >
+                  <a>{element}</a>
+                </li>
+              );
+            } else {
+              return (
+                <li onClick={() => this.props.setPage(element)}>
+                  <a>{element}</a>
+                </li>
+              );
+            }
+          })}
+          <li onClick={() => this.props.nextPage()}>
+            <a>&raquo;</a>
+          </li>
+        </ul>
+      );
+    }
+  }
   renderBtn = () => {
     if (this.state.currType === "add") {
       return (
@@ -167,6 +215,7 @@ class Category extends Component {
                   })}
                 </tbody>
               </table>
+              {this.renderPagination()}
             </section>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { bookTypes } from '../constants/action.types'
 import { combineReducers } from 'redux'
-const category = (state = { data: [] }, action) => {
+const category = (state = { data: [], page: 1, totalpage: null }, action) => {
     switch (action.type) {
         case bookTypes.SET_CATEGORY_BOOK: {
             return {
@@ -37,6 +37,18 @@ const category = (state = { data: [] }, action) => {
                 ...state,
                 isadd: null,
                 isupdate: null
+            }
+        }
+        case bookTypes.CATEGORY_SET_PAGE: {
+            return {
+                ...state,
+                page: action.page
+            }
+        }
+        case bookTypes.CATEGORY_SET_TOTAL_PAGE: {
+            return {
+                ...state,
+                totalpage: action.totalpage
             }
         }
         default: return state
