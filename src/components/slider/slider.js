@@ -38,9 +38,9 @@ class Slider extends Component {
                             </ul>
                         </li>
                         <li>
-                            <a className="" href="widgets.html">
+                            <a className="" href="/statistical">
                                 <i className="icon_genius"></i>
-                                <span>Widgets</span>
+                                <span>Statistical</span>
                             </a>
                         </li>
                         <li>

@@ -7,6 +7,7 @@ import AuthorContainer from "./author.container";
 import PublisherContainer from "./publisher.container";
 import UserContainer from "./user.container";
 import LoginContainer from "./login.container";
+import StatisticalContainer from './statistical.container'
 class App extends Component {
   render() {
     return (
@@ -23,6 +24,7 @@ class App extends Component {
           />
           <Route exact path="/usermanager" component={UserContainer} />
           <Route exact path="/login" component={LoginContainer} />
+          <Route exact path="/statistical" component={StatisticalContainer} />
         </Switch>
       </Router>
     );
