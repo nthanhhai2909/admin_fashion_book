@@ -84,7 +84,7 @@ const publisher = (state = { data: [] }, action) => {
         default: return state
     }
 }
-const author = (state = {data: []}, action) => {
+const author = (state = {data: [], page: 1, totalpage: null}, action) => {
     switch(action.type) {
         case bookTypes.SET_AUTHOR: {
             return {
@@ -121,6 +121,18 @@ const author = (state = {data: []}, action) => {
                 ...state,
                 isadd: null,
                 isupdate: null
+            }
+        }
+        case bookTypes.AUTHOR_SET_PAGE: {
+            return {
+                ...state,
+                page: action.page
+            }
+        }
+        case bookTypes.AUTHOR_SET_TOTAL_PAGE: {
+            return {
+                ...state,
+                totalpage: action.totalpage
             }
         }
         default: return state
