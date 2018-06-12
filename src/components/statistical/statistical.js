@@ -6,7 +6,11 @@ class Statistical extends Component {
       billNumberDay: null,
       productNumberDay: null,
       UserNumberDay: null,
-      totalDay: null
+      totalDay: null,
+      billNumberMonth: null,
+      productNumberMonth: null,
+      UserNumberMonth: null,
+      totalMonth: null,
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -16,6 +20,14 @@ class Statistical extends Component {
         productNumberDay: this.calculatorProductNumber(nextProps.dataByDay),
         UserNumberDay: this.calculatorUserNumber(nextProps.dataByDay),
         totalDay: this.calculatorTotal(nextProps.dataByDay)
+      });
+    }
+    if (nextProps.dataByMonth !== this.props.dataByMonth) {
+      this.setState({
+        billNumberMonth: nextProps.dataByMonth.length,
+        productNumberMonth: this.calculatorProductNumber(nextProps.dataByMonth),
+        UserNumberMonth: this.calculatorUserNumber(nextProps.dataByMonth),
+        totalMonth: this.calculatorTotal(nextProps.dataByMonth)
       });
     }
   }
@@ -126,6 +138,7 @@ class Statistical extends Component {
                       backgroundColor: "#F7F7F7",
                       borderRadius: "5px"
                     }}
+                    onChange={(e) => this.props.getStatisticalByMonth(e.target.value)}
                   />
                 </header>
 
@@ -141,10 +154,10 @@ class Statistical extends Component {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
+                        <td>{this.state.billNumberMonth}</td>
+                        <td>{this.state.productNumberMonth}</td>
+                        <td>{this.state.UserNumberMonth}</td>
+                        <td>{this.state.totalMonth}</td>
                       </tr>
                     </tbody>
                   </table>

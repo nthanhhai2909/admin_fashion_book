@@ -10,7 +10,8 @@ class StatisticalContainer extends Component {
   constructor() {
     super();
     this.state = {
-      dataByDay: []
+      dataByDay: [],
+      dataByMonth: [],
     };
   }
   getStatisticalByDay = async value => {
@@ -31,6 +32,24 @@ class StatisticalContainer extends Component {
     }
     this.setState({ dataByDay: res.data.data });
   };
+  getStatisticalByMonth = async (value) => {
+    let date = value.split("-");
+    console.log(date)
+    let res = null;
+    try {
+      res = await axios.post(
+        "http://localhost:8080/bill/statistical/revenue/month",
+        {
+          month: date[1],
+          year: date[0]
+        }
+      );
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+    this.setState({ dataByMonth: res.data.data });
+  }
   render() {
     return (
       <section id="container" className="">
@@ -39,6 +58,8 @@ class StatisticalContainer extends Component {
         <Statistical
           getStatisticalByDay={value => this.getStatisticalByDay(value)}
           dataByDay={this.state.dataByDay}
+          getStatisticalByMonth={value => this.getStatisticalByMonth(value)}
+          dataByMonth={this.state.dataByMonth}
         />
       </section>
     );
