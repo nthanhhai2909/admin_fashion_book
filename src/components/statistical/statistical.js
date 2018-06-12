@@ -2,7 +2,53 @@ import React, { Component } from "react";
 class Statistical extends Component {
   constructor() {
     super();
+    this.state = {
+      billNumberDay: null,
+      productNumberDay: null,
+      UserNumberDay: null,
+      totalDay: null
+    };
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.dataByDay !== this.props.dataByDay) {
+      this.setState({
+        billNumberDay: nextProps.dataByDay.length,
+        productNumberDay: this.calculatorProductNumber(nextProps.dataByDay),
+        UserNumberDay: this.calculatorUserNumber(nextProps.dataByDay),
+        totalDay: this.calculatorTotal(nextProps.dataByDay)
+      });
+    }
+  }
+  calculatorTotal = bills => {
+    let total = 0;
+    for (let i = 0; i < bills.length; i++) {
+      for (let k = 0; k < bills[i].products.length; k++) {
+        total += parseInt(
+          bills[i].products[k].count * parseInt(bills[i].products[k].price)
+        );
+      }
+    }
+    return total;
+  };
+  calculatorProductNumber = bills => {
+    let total = 0;
+    for (let i = 0; i < bills.length; i++) {
+      for (let k = 0; k < bills[i].products.length; k++) {
+        total += parseInt(bills[i].products[k].count);
+      }
+    }
+    console.log(total)
+    return total;
+  };
+  calculatorUserNumber = bills => {
+    let arr = [];
+    for (let i = 0; i < bills.length; i++) {
+      if (arr.indexOf(bills.id_user) === -1) {
+        arr.push(bills.id_user);
+      }
+    }
+    return arr.length;
+  };
   render() {
     return (
       <section id="main-content">
@@ -37,6 +83,9 @@ class Statistical extends Component {
                       backgroundColor: "#F7F7F7",
                       borderRadius: "5px"
                     }}
+                    onChange={e =>
+                      this.props.getStatisticalByDay(e.target.value)
+                    }
                   />
                 </header>
 
@@ -44,7 +93,7 @@ class Statistical extends Component {
                   <table className="table">
                     <thead>
                       <tr>
-                      <th>Number bill</th>
+                        <th>Number bill</th>
                         <th>Number Product</th>
                         <th>Number user</th>
                         <th>Total revenue</th>
@@ -52,10 +101,10 @@ class Statistical extends Component {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
+                        <td>{this.state.billNumberDay}</td>
+                        <td>{this.state.productNumberDay}</td>
+                        <td>{this.state.UserNumberDay}</td>
+                        <td>{this.state.totalDay}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -84,7 +133,7 @@ class Statistical extends Component {
                   <table className="table">
                     <thead>
                       <tr>
-                      <th>Number bill</th>
+                        <th>Number bill</th>
                         <th>Number Product</th>
                         <th>Number user</th>
                         <th>Total revenue</th>
@@ -125,7 +174,7 @@ class Statistical extends Component {
                   <table className="table">
                     <thead>
                       <tr>
-                      <th>Number bill</th>
+                        <th>Number bill</th>
                         <th>Number Product</th>
                         <th>Number user</th>
                         <th>Total revenue</th>
@@ -177,7 +226,7 @@ class Statistical extends Component {
                   <table className="table">
                     <thead>
                       <tr>
-                      <th>Number bill</th>
+                        <th>Number bill</th>
                         <th>Number Product</th>
                         <th>Number user</th>
                         <th>Total revenue</th>
