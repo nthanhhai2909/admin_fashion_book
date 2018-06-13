@@ -12,6 +12,8 @@ class StatisticalContainer extends Component {
     this.state = {
       dataByDay: [],
       dataByMonth: [],
+      dataByYear: [],
+      dataByQuauter: []
     };
   }
   getStatisticalByDay = async value => {
@@ -34,7 +36,6 @@ class StatisticalContainer extends Component {
   };
   getStatisticalByMonth = async (value) => {
     let date = value.split("-");
-    console.log(date)
     let res = null;
     try {
       res = await axios.post(
@@ -50,6 +51,37 @@ class StatisticalContainer extends Component {
     }
     this.setState({ dataByMonth: res.data.data });
   }
+  getStatisticalByYear = async (year) => {
+    let res = null;
+    try {
+      res = await axios.post(
+        "http://localhost:8080/bill/statistical/revenue/year",
+        {
+          year: year
+        }
+      );
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+    this.setState({ dataByYear: res.data.data });
+  }
+  getStatisticalByQuauter = async (year, quauter) => {
+    let res = null;
+    try {
+      res = await axios.post(
+        "http://localhost:8080/bill/statistical/revenue/quauter",
+        {
+          year: year,
+          quauter: quauter
+        }
+      );
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+    this.setState({ dataByQuauter: res.data.data });
+  }
   render() {
     return (
       <section id="container" className="">
@@ -60,6 +92,10 @@ class StatisticalContainer extends Component {
           dataByDay={this.state.dataByDay}
           getStatisticalByMonth={value => this.getStatisticalByMonth(value)}
           dataByMonth={this.state.dataByMonth}
+          getStatisticalByYear={year => this.getStatisticalByYear(year)}
+          dataByYear={this.state.dataByYear}
+          getStatisticalByQuauter={(year, quauter) => this.getStatisticalByQuauter(year, quauter)}
+          dataByQuauter={this.state.dataByQuauter}
         />
       </section>
     );
