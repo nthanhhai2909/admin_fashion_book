@@ -55,7 +55,8 @@ const mapStateToProps = state => ({
   isadd: state.bookReducers.publisher.isadd,
   isupdate: state.bookReducers.publisher.isupdate,
   totalpage: state.bookReducers.publisher.totalpage,
-  page: state.bookReducers.publisher.page
+  page: state.bookReducers.publisher.page,
+  islogin: state.userReducers.user.islogin
 });
 
 const mapDispatchToProps = dispatch => {

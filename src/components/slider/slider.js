@@ -6,7 +6,7 @@ class Slider extends Component {
                 <div id="sidebar" className="nav-collapse ">
                     <ul className="sidebar-menu">
                         <li className="active">
-                            <a className="" href="index.html">
+                            <a className="" href="/">
                                 <i className="icon_house_alt"></i>
                                 <span>Dashboard</span>
                             </a>
