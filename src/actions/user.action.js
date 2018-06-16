@@ -8,14 +8,38 @@ export const setUser = (data) => ({
 export const getUser = () => async (dispatch, getState) => {
     let res
     try {
-        res = await axios.get('http://localhost:8080/admin/getAllUser')
+        res = await axios.get('http://localhost:8080/admin/getAllUser/' + getState().userReducers.user.page)
     }
     catch (err) {
         console.log(err)
         return
     }
     dispatch(setUser(res.data.data))
+    dispatch(setTotalPage(res.data.totalPage))
+
 }
+export const setTotalPage = (totalpage) => ({
+    type: userTypes.SET_TOTAL_PAGE,
+    totalpage
+})
+export const setPage = (page) => ({
+    type: userTypes.SET_PAGE,
+    page
+})
+export const nextPage = () => (dispatch, getState) => {
+    let page = getState().userReducers.user.page
+    let totalpage = getState().userReducers.user.totalpage
+    if(page < totalpage) {
+        dispatch(setPage(parseInt(page) + 1))
+    }
+}
+export const backPage = () => (dispatch, getState) => {
+    let page = getState().userReducers.user.page
+    if(page > 1) {
+        dispatch(setPage(parseInt(page) - 1))
+    }
+}
+
 export const deleteUser = (email) => async (dispatch, getState) => {
     let res
     try {

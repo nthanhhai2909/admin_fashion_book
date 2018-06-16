@@ -14,10 +14,25 @@ class User extends Component {
       address: "",
       phone_number: "",
       currType: "add",
-      is_admin: false
+      is_admin: false,
+      pagination: [],
     };
   }
+  componentWillMount() {
+    let tmp = [];
+    for (let i = 1; i <= this.props.totalpage; i++) {
+      tmp.push(i);
+    }
+    this.setState({ pagination: tmp });
+  }
   componentWillReceiveProps(nextProps) {
+    if (nextProps.totalpage !== this.props.totalpage) {
+      let tmp = [];
+      for (let i = 1; i <= nextProps.totalpage; i++) {
+        tmp.push(i);
+      }
+      this.setState({ pagination: tmp });
+    }
     if (nextProps.isadd === false) {
       this.setState({
         noti: "Email already exist "
@@ -31,6 +46,40 @@ class User extends Component {
       });
     } else if (nextProps.isupdate === true) {
       this.reset();
+    }
+  }
+  renderPagination() {
+    if (this.state.pagination.length === 0) {
+      return null;
+    } else {
+      return (
+        <ul className="pagination pagination-custom col-md-6 offset-md-3">
+          <li onClick={() => this.props.backPage()}>
+            <a>&laquo;</a>
+          </li>
+          {this.state.pagination.map((element, index) => {
+            if (this.props.page === element) {
+              return (
+                <li
+                  className="active"
+                  onClick={() => this.props.setPage(element)}
+                >
+                  <a>{element}</a>
+                </li>
+              );
+            } else {
+              return (
+                <li onClick={() => this.props.setPage(element)}>
+                  <a>{element}</a>
+                </li>
+              );
+            }
+          })}
+          <li onClick={() => this.props.nextPage()}>
+            <a>&raquo;</a>
+          </li>
+        </ul>
+      );
     }
   }
   isvalidEmail = email => {
@@ -49,6 +98,7 @@ class User extends Component {
     }
     return true;
   };
+
   addUser = () => {
     const {
       email,
@@ -464,6 +514,7 @@ class User extends Component {
                   })}
                 </tbody>
               </table>
+              {this.renderPagination()}
             </section>
           </div>
         </div>

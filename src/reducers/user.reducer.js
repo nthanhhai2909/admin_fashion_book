@@ -1,7 +1,7 @@
 import { userTypes } from '../constants/action.types'
 import { combineReducers } from 'redux'
 const user = (state = {
-    data: []
+    data: [], page: 1, totalpage: null
 }, action) => {
     switch(action.type){
         case userTypes.SET_USER: {
@@ -51,6 +51,18 @@ const user = (state = {
             return {
                 ...state,
                 islogin: false
+            }
+        }
+        case userTypes.SET_PAGE: {
+            return {
+                ...state,
+                page: action.page
+            }
+        }
+        case userTypes.SET_TOTAL_PAGE: {
+            return {
+                ...state,
+                totalpage: action.totalpage
             }
         }
         default: return state

@@ -41,7 +41,9 @@ export const userTypes = {
     UPDATE_USER_FAIL: 'UPDATE_USER_FAIL',
     RESET_USER: 'RESET_USER',
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
-    LOGIN_FAIL: 'LOGIN_FAIL'
+    LOGIN_FAIL: 'LOGIN_FAIL',
+    SET_PAGE: 'SET_PAGE',
+    SET_TOTAL_PAGE:'SET_TOTAL_PAGE'
 }
 
 export const homeTypes = {

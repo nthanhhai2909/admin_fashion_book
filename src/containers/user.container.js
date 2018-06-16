@@ -22,6 +22,9 @@ class UserContainer extends Component {
     ) {
       this.props.history.push("/login");
     }
+    if (nextProps.page !== this.props.page) {
+      this.props.userActions.getUser();
+    }
   }
   render() {
     return (
@@ -32,6 +35,11 @@ class UserContainer extends Component {
           user={this.props.user}
           isadd={this.props.isadd}
           isupdate={this.props.isupdate}
+          page={this.props.page}
+          totalpage={this.props.totalpage}
+          backPage={() => this.props.userActions.backPage()}
+          nextPage={() => this.props.userActions.nextPage()}
+          setPage={page => this.props.userActions.setPage(page)}
           updateUser={(
             email,
             firstName,
@@ -77,7 +85,9 @@ class UserContainer extends Component {
 const mapStateToProps = state => ({
   user: state.userReducers.user.data,
   isadd: state.userReducers.user.isadd,
-  isupdate: state.userReducers.user.isupdate
+  isupdate: state.userReducers.user.isupdate,
+  totalpage: state.userReducers.user.totalpage,
+  page: state.userReducers.user.page
 });
 
 const mapDispatchToProps = dispatch => {
