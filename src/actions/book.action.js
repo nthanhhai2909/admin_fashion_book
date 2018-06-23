@@ -308,6 +308,20 @@ export const publisherNextPage = () => (dispatch, getState) => {
         dispatch(publisherSetPage(parseInt(page) + 1))
     }
 }
+export const billBackPage = () => (dispatch, getState) => {
+    let page = getState().bookReducers.bill.page
+    if(page > 1) {
+        dispatch(billSetPage(parseInt(page) - 1))
+    }
+}
+
+export const billNextPage = () => (dispatch, getState) => {
+    let page = getState().bookReducers.bill.page
+    let totalpage = getState().bookReducers.bill.totalpage
+    if(page < totalpage) {
+        dispatch(billSetPage(parseInt(page) + 1))
+    }
+}
 export const addBookSuccess = () => ({
     type: bookTypes.ADD_BOOK_SUCCESS
 })
@@ -363,4 +377,32 @@ export const updateBook = (id, name, id_category, price, release_date, describe,
     } 
     dispatch(updateBookSuccess())
     dispatch(getBook())
+}
+export const setBill = (data) => ({
+    type: bookTypes.BILL_SET_DATA,
+    data
+})
+export const billSetPage = (page) => ({
+    type: bookTypes.BILL_SET_PAGE,
+    page
+})
+export const billSetTotalPage = (totalpage) => ({
+    type: bookTypes.BILL_SET_TOTAL_PAGE,
+    totalpage
+})
+export const getBill = (status) => async(dispatch, getState) => {
+    let link = "http://localhost:8080/bill/status/true"
+    if(status === "false") {
+        link = "http://localhost:8080/bill/status/false"
     }
+    let res = null
+    try {
+       res =  await axios.get(link)
+    }
+    catch(err) {
+        return
+    }
+    dispatch(setBill(res.data.data))
+    dispatch(billSetTotalPage(res.data.totalPage))
+
+}

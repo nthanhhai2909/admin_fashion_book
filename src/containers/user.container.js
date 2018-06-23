@@ -87,7 +87,8 @@ const mapStateToProps = state => ({
   isadd: state.userReducers.user.isadd,
   isupdate: state.userReducers.user.isupdate,
   totalpage: state.userReducers.user.totalpage,
-  page: state.userReducers.user.page
+  page: state.userReducers.user.page,
+  islogin: state.userReducers.user.islogin
 });
 
 const mapDispatchToProps = dispatch => {

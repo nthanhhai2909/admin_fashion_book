@@ -162,6 +162,29 @@ const author = (state = {data: [], page: 1, totalpage: null}, action) => {
         default: return state
     }
 }
+const bill = (state = { data: [], page: 1, totalpage: null}, action) => {
+    switch(action.type) {
+        case bookTypes.BILL_SET_PAGE: {
+            return {
+                ...state,
+                page: action.page
+            }
+        }
+        case bookTypes.BILL_SET_TOTAL_PAGE: {
+            return {
+                ...state,
+                totalpage: action.totalpage
+            }
+        }
+        case bookTypes.BILL_SET_DATA: {
+            return {
+                ...state,
+                data: action.data
+            }
+        }
+        default: return state
+    }
+}
 const book = (state = {
     data: [], page: 1, totalpage: null
 }, action) => {
@@ -222,5 +245,6 @@ export default combineReducers({
     category,
     publisher,
     book, 
-    author
+    author,
+    bill
 })
