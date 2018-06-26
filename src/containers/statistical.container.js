@@ -16,6 +16,14 @@ class StatisticalContainer extends Component {
       dataByQuauter: []
     };
   }
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.islogin !== this.props.islogin &&
+      nextProps.islogin === false
+    ) {
+      this.props.history.push("/login");
+    }
+  }
   getStatisticalByDay = async value => {
     let date = value.split("-");
     let res = null;
@@ -101,7 +109,9 @@ class StatisticalContainer extends Component {
     );
   }
 }
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  islogin: state.userReducers.user.islogin
+});
 
 const mapDispatchToProps = dispatch => {
   return {
